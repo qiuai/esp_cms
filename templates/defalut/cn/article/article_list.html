@@ -1,0 +1,39 @@
+
+{%link file="cn/public/header.html"%}
+
+<!-- 广告 -->
+<div class="banner_new"></div>
+<!-- 广告End -->
+<!-- 面包屑 -->
+<div class="crumbs">
+	<div class="warp">{%list name=path class=type:type,id:$type.tid%}</div>
+</div>
+<!-- 面包屑End -->
+<!-- 内容区域 -->
+<div class="warp clear">
+	<div class="cont_left">
+    	{%link file="cn/public/left.html"%}
+    </div>
+    <div class="cont_right">
+    	<div class="title">{%$type.typename%}</div>
+
+        {%if count($array) > 0%}
+        <div class="news_list">
+            {%forlist from=$array key=i%}
+            <div class="newsbox clear">
+                <span><a title="{%$array[i].title%}" href="{%$array[i].link%}">{%if $array[i].pic%}<img alt="{%$array[i].title%}" src="{%$array[i].pic|zoom(80,80,'',3)%}" width="144" height="144" />{%else%}<img src="{%$rootpath%}images/tu.jpg" width="144" height="144" /></a>{%/if%}</span>
+                <dl>
+                    <dt><a title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle%}</a></dt>
+                    <dd>{%$array[i].summary%}</br></br>{%$array[i].addtime|timeformat(3)%}</dd>
+                </dl>
+            </div>
+			{%/forlist%}
+        </div>
+       {%/if%}	
+
+       </div>
+    </div>
+</div>
+<!-- 内容区域End -->
+
+{%link file="cn/public/footer.html"%}

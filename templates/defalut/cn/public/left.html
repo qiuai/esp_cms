@@ -1,0 +1,8 @@
+<ul>
+    {%get name=typelist class=utid:$type.topid,tid:$type.tid%}
+    <li><a {%if $uptypeview.tid==$_GET[tid]%}href="javascript:void(0);" class="hot"{%/if%}>{%$uptypeview.typename%}</a><em {%if $uptypeview.tid==$_GET[tid]%}class="hot"{%/if%}></em></li>
+    {%forlist from=$array key=i%}
+    <li><a href="{%$array[i].link%}" {%if $array[i].selected==1 %}href="javascript:void(0);" class="hot"{%/if%} title="{%$array[i].typename%}">{%$array[i].typename%}</a><em {%if $array[i].selected==1 %}class="hot"{%/if%}></em></li>
+    {%/forlist%}
+    {%/get%}
+</ul>

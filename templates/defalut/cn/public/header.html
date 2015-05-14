@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+<title>{%$lngpack.sitename%}</title>
+<meta name="keywords" content="{%$lngpack.keyword%}" />
+<meta name="description" content="{%$lngpack.description%}" />
+<!-- 引入CSS -->
+<link rel="stylesheet" type="text/css" href="{%$rootpath%}css/style.css">
+<!-- 引入JS -->
+<script src="{%$rootpath%}js/jquery.min.js"></script>
+<script src="{%$rootpath%}js/jquery.flexslider-min.js"></script>
+</head>
+<body>
+<!-- 头部导航 -->
+<div class="top">
+	<div class="warp box">
+    	<span>GMT+8  2015-5-5 12:00</span>
+        <dl>
+        	{%get name=lng%}
+			{%forlist from=$array key=i%}
+            {%if $i== 0%}
+            <dt><img src="{%$rootpath%}images/c.jpg"/><a href="{%$array[i].link%}">{%$array[i].lngtitle%}</a></dt>
+            {%else%}
+            <dd><img src="{%$rootpath%}images/c.jpg"/><a href="{%$array[i].link%}">{%$array[i].lngtitle%}</a></dd>
+            {%/if%}
+			{%/forlist%}
+			{%/get%}
+        </dl>
+        <em>帮助</em>
+    </div>
+</div>
+<!-- 头部导航 End -->
+<!-- LOGO 登录 -->
+<div class="bar_box">
+    <div class="warp bar_top">
+        <div class="logo"><a href="{%$rootdir%}"><img src="{%$rootpath%}images/logo.jpg"/></a></div>
+        <div class="login">
+            <ul>
+                <li><span>账户</span><input name="" type="text" class="text_01"><em><input name="" type="checkbox" value="" class="checkbox">自动登录 </em><a href="#">找回密码</a></li>
+                <li><span>密码</span><input name="" type="text" class="text_02"><input name="" type="button" class="button_01"><input name="" type="button" class="button_02"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- LOGO 登录 End -->
+<!-- 主导航 -->
+<div class="header">
+	<ul class="warp clear">
+        {%get name=menu class=path:$path,current:$current,ishome:1%}
+		{%forlist from=$array key=i%}
+		<li {%if $array[i].path==$path && $array[i].current==$current%}class="hover"{%/if%}><span><a class="menu" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].title%}</a></span></li>
+		{%/forlist%}
+		{%/get%}
+    </ul>
+</div>
+<!-- 主导航 End -->

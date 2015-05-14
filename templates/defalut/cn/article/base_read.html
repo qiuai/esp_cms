@@ -1,0 +1,24 @@
+
+{%link file="cn/public/header.html"%}
+
+<!-- 广告 -->
+<div class="banner_new"></div>
+<!-- 广告End -->
+<!-- 面包屑 -->
+<div class="crumbs">
+	<div class="warp">{%list name=path class=type:type,id:$type.tid%}</div>
+</div>
+<!-- 面包屑End -->
+<!-- 内容区域 -->
+<div class="warp clear">
+	<div class="cont_left">
+    	{%link file="cn/public/left.html"%}
+    </div>
+    <div class="cont_right">
+    	<div class="titles">{%$read.title%}</div>
+        <div class="cp">{%$read.content%}</div>
+    </div>
+</div>
+<!-- 内容区域End -->
+
+{%link file="cn/public/footer.html"%}
