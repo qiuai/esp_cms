@@ -103,7 +103,13 @@ dd
             <!-- 视频 -->
             <div class="video mt30">
                 <div class="title_top"><img src="{%$rootpath%}images/video.jpg">视频</div>
-                <div class="video_box"><img src="{%$rootpath%}images/tp_01.jpg"></div>
+                <div class="video_box">
+                	{%get name=bann class=atid:8,adtype:1,max:1%}
+                    {%forlist from=$array key=i%}
+                    <a title="{%$array[i].title%}" target="_blank" href="{%$array[i].url%}"><img alt="{%$array[i].title%}" border="0" src="{%$rootdir%}{%$array[i].filename%}"></a>
+                    {%/forlist%}
+                    {%/get%}
+                </div>
                 <div class="mt30"><img src="{%$rootpath%}images/tp_02.jpg"></div>
                 <div class="mt30"><img src="{%$rootpath%}images/tp_03.jpg"></div>
             </div>
