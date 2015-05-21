@@ -61,15 +61,7 @@ class important extends connector {
 		$volstr = $this->CON['softvolstr'];
 		$volarray = $this->oncheckvol();
 		if ($volarray['vol'] > $this->CON['softvol']) {
-			$volstr = $volstr . '<span class="padding-left5">' . $this->lng['management_login_vol'] . '</span><a class="volcheck" hidefocus="true" href="#body" onclick="parent.windowsdig(\'' . $this->lng['management_login_volupdatetitle'] . '\',\'iframe:index.php?archive=upgrademain&action=upgrade&iframename=\',\'680px\',\'440px\',\'iframe\');">' . $this->lng['management_login_volupdatebotton'] . '</a>';
-		}
-		if ($this->CON['isdbo'] == 0) {
-			if ($this->CON['checkclass'] == 'true') {
-				$str = '%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E6%8E%88%E6%9D%83%E7%B1%BB%E5%9E%8B%EF%BC%9A%3Cb%3E%E6%8E%88%E6%9D%83%E7%89%88%3C%2Fb%3E%26nbsp%3B+%26nbsp%3B+%26nbsp%3B%26nbsp%3B+%26nbsp%3B+%26nbsp%3B%E6%8E%88%E6%9D%83%E5%8F%B7%EF%BC%9A';
-				$dbostr = '<div class="volmessage"><span class="padding-left5 colorgorningage" id="softkyemessage">' . urldecode($str) . '<b>' . $this->CON['codesoftkey'] . '</b></span></div>';
-			} else {
-				$dbostr = '<div class="volmessage"><span class="padding-left5 colorgorningage" id="softkyemessage">' . $this->lng['management_login_vol_str'] . $this->lng['management_login_vol_messvol'] . $this->lng['management_login_vol_messvol_mess'] . '</span></div>';
-			}
+			$volstr = $volstr;
 		}
 
 		$outstr = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -115,7 +107,7 @@ class important extends connector {
 			<div class="maindobycontent">
 				<div id="softmessage"></div>
 				<div class="menssageadmin">
-					<span class="fontsize14">' . $this->fun->get_timemessage(time()) . '<span class="padding-left5 strong">' . $rsMember['username'] . '（' . $rsMember['name'] . '）</span><span class="padding-left5">' . $this->lng['management_login_welcomtitle'] . '</span> <span class="padding-left5">' . $this->lng['management_login_versiontitle'] . '：' . $volstr . '</span></span>
+					<span class="fontsize14">' . $this->fun->get_timemessage(time()) . '<span class="padding-left5 strong">' . $rsMember['username'] . '（' . $rsMember['name'] . '）</span><span class="padding-left5">' . $this->lng['management_login_welcomtitle'] . '</span> </span>
 				</div>
 				<div class="loginmessage">
 					<div class="logincenterdiv">

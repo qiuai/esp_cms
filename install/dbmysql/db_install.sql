@@ -3505,7 +3505,7 @@ INSERT INTO `esp_lng` (`id`, `pid`, `lng`, `lngtitle`, `url`, `lockin`, `iswap`,
 
 INSERT INTO `esp_lngpack` (`lpid`, `pid`, `lng`, `title`, `keycode`, `langstr`, `lockin`, `typeid`) VALUES
 (1, 50, 'cn', '网站名称', 'sitename', '易思ESPCMS企业网站管理系统V6 - 最专业的企业建站管理平台', 0, 3),
-(2, 50, 'cn', '关键字', 'keyword', '易思ESPCMS,ESPCMS,PHP企业网站管理系统,开源企业网站系统,企业网站建设,ecisp.cn,earclink.com', 0, 3),
+(2, 50, 'cn', '关键字', 'keyword', 'PHP企业网站管理系统,开源企业网站系统,企业网站建设,ecisp.cn,earclink.com', 0, 3),
 (3, 50, 'cn', '网站简介', 'description', 'ESPCMSV6是一套基于LAMP开发构建的企业网站管理系统。可以帮您迅速、轻松地构建起一个强大专业的企业网站。内置多模型自定、SEO搜索优化、静态页生成、评论留言、订购、会员等常见企业网站基本功能，通过灵活的插件机制还能扩展应用，帮您更好地实现网站价值', 0, 3),
 (4, 50, 'cn', '翻页信息', 'pagetext', '共有 $1 条记录 当前第 $2 页/共有 $3 页 每页显示 $4 条', 0, 4),
 (5, 50, 'cn', '翻页按钮', 'pagebotton', '首页/上一页/下一页/尾页', 0, 4),

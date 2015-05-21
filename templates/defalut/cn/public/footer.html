@@ -21,8 +21,8 @@
   	</div>
 </div>
 <div class="warp foote_bottom">
-    <h6>版权所有 © 深圳友融金融公司 www.yourongjr.com 备案号：粤ICP备14001856-1号 </h6>
-    <h5><img src="{%$rootpath%}images/icon_04.jpg" width="296" height="42"></h5>
+    <h6>版权所有 © 深圳友融金融公司 www.yourongjr.com {%$icp%} </h6>
+    <h5></h5>
 </div>
 <!-- 底部End -->
 <script>
@@ -31,6 +31,9 @@ $(window).load(function() {
 		directionNav: false,
 		pauseOnAction: false
 	});
+	if($('.cont_left dd .hot').length>0){
+		$('.cont_left dd .hot').parent().parent().parent().find("em").addClass('hot');
+	}
 });
 </script>
 </body>
