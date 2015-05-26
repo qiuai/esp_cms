@@ -7,10 +7,10 @@
 			<li><a href="{%$array[i].link%}">{%$array[i].lngtitle%}</a></li>
 			{%/forlist%}
 			{%/get%}
-			<li><a href="{%$rootdir%}wap/">Mobile Web</a></li>
-			<li><a href="{%find:mlink class=1 out=login%}">Member</a></li>
-			<li><a href="{%find:mlink class=2 out=order%}">Shopping Cart</a></li>
-			<li><a href="{%find:mlink class=2 out=enquiry%}">Inquiry</a></li>
+			<li><a href="{%$rootdir%}wap/">手机网站</a></li>
+			<li><a href="{%find:mlink class=1 out=login%}">会员中心</a></li>
+			<li><a href="{%find:mlink class=2 out=order%}">购物车</a></li>
+			<li><a href="{%find:mlink class=2 out=enquiry%}">询盘清单</a></li>
 		</ul>
 	</div>
 	{%get name=search class=mid:0%}
@@ -20,8 +20,8 @@
 	<div class="head_search">
 		<ul class="unstyled">
 			<li id="search_left"></li>
-			<li id="search_input"><input id="keyword" name="keyword" type="text" class="search_input" size="5" value="Please input keywords" onfocus="if (this.value=='Please input keywords'){this.value=''}" onblur="if(this.value==''){this.value='Please input keywords'}"/></li>
-			<li id="search_botton"><input type="image"  name="botton" src="{%$rootpath%}images/search_botton_2.jpg" class="search_botton" value="Search"/></li>
+			<li id="search_input"><input id="keyword" name="keyword" type="text" class="search_input" size="20" value="请输入关键词" onfocus="if (this.value=='请输入关键词'){this.value=''}" onblur="if(this.value==''){this.value='请输入关键词'}"/></li>
+			<li id="search_botton"><input type="image"  name="botton" src="{%$rootpath%}images/search_botton_2.jpg" class="search_botton" value="开始搜索"/></li>
 		</ul>
 	</div>
 	</form>

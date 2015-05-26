@@ -85,6 +85,8 @@
 			{%/forlist%}
 		</ul>
 		{%/get%}
+
+		{%link file="en/public/left.html"%}
 	</div>
 
 	<div class="espcms_page_right">
@@ -101,9 +103,9 @@
 					<dl>
 						<dt><a href="{%$array[i].link%}" title="{%$array[i].title%}"><img src="{%$array[i].pic|zoom(180,130)%}" alt="{%$array[i].title%}"/></a></dt>
 						<dd class="t"><a target="_blank" class="titlelink strong" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></dd>
-						<dd class="p">Product number:{%$array[i].tsn%}     <strong>￥{%$array[i].bprice%}</strong></dd>
-						<dd class="s">{%$array[i].summary%}</dd>
-						<dd class="b"><a href="{%$array[i].buylink%}" class="button rosy">Order</a>  <a href="{%$array[i].enqlink%}" class="button blue">Enquiry</a></dd>
+						<dd class="p">产品编号：{%$array[i].tsn%}     购买价：<strong>￥{%$array[i].bprice%}</strong></dd>
+						<dd class="s">{%$array[i].summary|cutstr(100)%}</dd>
+						<dd class="b"><a href="{%$array[i].buylink%}" class="button rosy">点击购买</a>  <a href="{%$array[i].enqlink%}" class="button blue">在线询价</a></dd>
 					</dl>
 				</li>
 				{%/forlist%}
@@ -120,7 +122,7 @@
 		</div>
 		{%else%}
 		<div class="espcms_page_botton">
-			<div id="pagelist">No content</div>
+			<div id="pagelist">暂无内容</div>
 		</div>
 		{%/if%}
 	</div>

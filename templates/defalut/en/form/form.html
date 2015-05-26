@@ -27,7 +27,7 @@ function {%$form.formcode%}form(seccodetype) {
 				if(document.{%$form.formcode%}.{%$array[i].attrname%}.value==''){
 			{%/if%}
 			document.{%$form.formcode%}.{%$array[i].attrname%}.focus();
-			alert('{%$array[i].typename%} Input error, please return to enter again');
+			alert('{%$array[i].typename%}输入错误，请返回重新输入');
 			return false;
 		}
 		{%/if%}
@@ -111,7 +111,7 @@ function {%$form.formcode%}form(seccodetype) {
 	</div>
 	<div class="espcms_page_right">
 		<div class="espcms_page_typename">{%$form.formgroupname%}</div>
-		<div class="espcms_page_location"><a href="{%$homelink%}">Home</a> » <b>{%$form.formgroupname%}</b></div>
+		<div class="espcms_page_location">您现在的位置：<a href="{%$homelink%}">首页</a> » <b>{%$form.formgroupname%}</b></div>
 		<div class="espcms_page_right_line"></div>
 
 		<div class="espcms_book">
@@ -169,16 +169,16 @@ function {%$form.formcode%}form(seccodetype) {
 				{%/forlist%}
 				{%if $form.isseccode==1%}
 				<div class="espcms_form_group">
-					<label for="username" class="control_label">Security code</label>
+					<label for="username" class="control_label">验证码</label>
 					<div class="control_required">
 						<input type="text" id="seccode" name="seccode" class=" infoInput" maxlength="4" size="5" style="text-transform: uppercase;"/>
-						<img title="Enter code shown in image" id="{%$form.formcode%}seccodesrc" onclick="sessionimg('{%$form.formcode%}seccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
+						<img title="点击更换验证码" id="{%$form.formcode%}seccodesrc" onclick="sessionimg('{%$form.formcode%}seccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
 					</div>
 				</div>
 				{%/if%}
 				<div class="espcms_form_group">
 					<label class="control_label"> </label>
-					<div class="control_required"><input type="submit" id="{%$form.formcode%}botton" class="button blue2" value="Submit"> </div>
+					<div class="control_required"><input type="submit" id="{%$form.formcode%}botton" class="button blue2" value="确认提交"> </div>
 				</div>
 			</form>
 		</div>

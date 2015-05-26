@@ -36,7 +36,7 @@
 <div class="espcms_page">
 
 		<div class="espcms_page_typename">{%$type.typename%}</div>
-		<div class="espcms_page_location"><a href="{%$homelink%}">Home</a> » <b>{%$type.typename%}</b></div>
+		<div class="espcms_page_location">您现在的位置：<a href="{%$homelink%}">首页</a> » <b>{%$type.typename%}</b></div>
 		<div class="espcms_page_center_line"></div>
 
 		{%if $out=='forumbbs'%}
@@ -48,7 +48,7 @@
 				<li>
 					<div class="espcms_bbs_content_a_read_table">
 						<div class="espcms_index">
-							<span class="espcms_bbs_title">Title：{%$array[i].title%}</span>   <span class="espcms_bbs_auto">{%$array[i].username%}</span>    <span class="espcms_bbs_time">{%$array[i].addtime|timeformat(3)%}</span>
+							<span class="espcms_bbs_title">主题：{%$array[i].title%}</span>   <span class="espcms_bbs_auto">{%$array[i].username%}</span>    <span class="espcms_bbs_time">留言时间：{%$array[i].addtime|timeformat(3)%}</span>
 						</div>
 						<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
 						<div class="content">
@@ -57,7 +57,7 @@
 							{%if count( $array[i].list )>0 %}
 							{%forlist from=$array[i].list key=ii%}
 							<div class="espcms_bbs_content_b_read_table">
-								<div class="espcms_index_re"><span class="espcms_bbs_title">Reply</span>   <span class="espcms_bbs_time">{%$array[i].list[ii].addtime|timeformat(3)%}</span></div>
+								<div class="espcms_index_re"><span class="espcms_bbs_title">管理员回复</span>   <span class="espcms_bbs_time">留言时间：{%$array[i].list[ii].addtime|timeformat(3)%}</span></div>
 								<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
 								<div class="content">{%$array[i].list[ii].content|htmlcode('0')%}</div>
 								<b class="b5"></b><b class="b6"></b><b class="b7"></b><b class="b8"></b>
@@ -81,7 +81,7 @@
 			</div>
 			{%else%}
 			<div class="espcms_page_botton">
-				<div id="pagination">No message</div>
+				<div id="pagination">暂无留言</div>
 			</div>
 			{%/if%}
 
@@ -100,16 +100,17 @@
 				<input type="hidden" name="tokenkey" value="{%$tokenkey.token_key%}"/>
 				<div class="espcms_bbs_form pt20">
 					<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
-					<div class="title"><div class="messageicon"></div><div class="messtitle"> Message</div></div>
+					<div class="title"><div class="messageicon"></div><div class="messtitle">网站留言</div></div>
 					<div class="content">
 						<div class="espcms_form_group">
-							<label for="title" class="control_label">Title</label>
+							<label for="title" class="control_label">标题</label>
 							<div class="control_required">
 								<input type="text" name="title" id="title" class="col6 infoInput"/>
+								<span class="form_message">请填写不大于20个字符的中英文字符</span>
 							</div>
 						</div>
 						<div class="espcms_form_group">
-							<label for="username" class="control_label">Name</label>
+							<label for="username" class="control_label">姓名</label>
 							<div class="control_required"><input type="text" name="username" id="username" value="{%$member.alias%}" class="col5 infoInput"/></div>
 						</div>
 						<div class="espcms_form_group">
@@ -117,7 +118,7 @@
 							<div class="control_required"><input type="text" name="email" id="email" value="{%$member.email%}" class="col5 infoInput"/></div>
 						</div>
 						<div class="espcms_form_group">
-							<label for="content" class="control_label">Content</label>
+							<label for="content" class="control_label">内容</label>
 							<div class="control_required">
 								<textarea name="content" id="content" rows="6" class="col11 infoInput"></textarea>
 							</div>
@@ -126,8 +127,8 @@
 						<div class="espcms_form_group">
 							<label for="content" class="control_label"></label>
 							<div class="control_required f14">
-								<input type="radio" value="1" name="istype" onclick="ondisplayother('lastdiv2', 'displaytrue', 'lastdiv1', 'displaynone');" checked="checked"/> Don't fill in additional information&nbsp;
-								<input type="radio" value="2" name="istype" onclick="ondisplayother('lastdiv2', 'displaynone', 'lastdiv1', 'displaytrue')"/> Fill in the additional information
+								<input type="radio" value="1" name="istype" onclick="ondisplayother('lastdiv2', 'displaytrue', 'lastdiv1', 'displaynone');" checked="checked"/> 省略附加信息&nbsp;
+								<input type="radio" value="2" name="istype" onclick="ondisplayother('lastdiv2', 'displaynone', 'lastdiv1', 'displaytrue')"/> 填写附加信息
 							</div>
 						</div>
 
@@ -141,30 +142,30 @@
 								<div class="control_required"><input type="text" name="msn" value="{%$member.msn%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
-								<label class="control_label">Address</label>
+								<label class="control_label">联系地址</label>
 								<div class="control_required"><input type="text" name="address" value="{%$member.address%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
-								<label class="control_label">Tel</label>
+								<label class="control_label">电话</label>
 								<div class="control_required"><input type="text" name="tel" value="{%$member.tel%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
-								<label class="control_label">Mobile</label>
+								<label class="control_label">手机</label>
 								<div class="control_required"><input type="text" name="mobile" value="{%$member.mobile%}" class="col5 infoInput"/></div>
 							</div>
 						</div>
 						{%if $type.isseccode==1%}
 						<div class="espcms_form_group">
-							<label for="seccode" class="control_label">Security code</label>
+							<label for="seccode" class="control_label">验证码</label>
 							<div class="control_required">
 								<input type="text" id="seccode" name="seccode" class=" infoInput" maxlength="4" size="5" style="text-transform: uppercase;"/>
-								<img id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
+								<img title="点击更换验证码" id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
 							</div>
 						</div>
 						{%/if%}
 						<div class="espcms_form_group">
 							<label class="control_label"> </label>
-							<div class="control_required"><input type="submit" id="submit" class="button blue2" value="Submit"> </div>
+							<div class="control_required"><input type="submit" id="submit" class="button blue2" value="确认提交"> </div>
 						</div>
 					</div>
 					<b class="b5"></b><b class="b6"></b><b class="b7"></b><b class="b8"></b>
@@ -179,8 +180,8 @@
 			<ul class="espcms_bbs_list">
 				{%forlist from=$array key=i%}
 				<li>
-					<div class="espcms_bbs_list_title"><a href="{%$array[i].link%}" title="{%$array[ii].title%}" class="bbslistlink">{%$array[i].title%}</a> <span>（{%$array[i].click%}/{%$array[i].replynum%}）</span></div>
-					<div class="espcms_bbs_list_data"><span class="espcms_bbs_list_aoto">{%$array[i].username%} </span> {%$array[i].addtime|timeformat(3)%}</div>
+					<div class="espcms_bbs_list_title"><a href="{%$array[i].link%}" title="{%$array[ii].title%}" class="bbslistlink">{%$array[i].title%}</a> <span>（{%$array[i].click%}阅/{%$array[i].replynum%}回）</span></div>
+					<div class="espcms_bbs_list_data"><span class="espcms_bbs_list_aoto">{%$array[i].username%} 于</span> {%$array[i].addtime|timeformat(3)%}</div>
 				</li>
 				{%/forlist%}
 			</ul>
@@ -196,7 +197,7 @@
 			</div>
 			{%else%}
 			<div class="espcms_page_botton">
-				<div id="pagination">No message</div>
+				<div id="pagination">暂无留言</div>
 			</div>
 			{%/if%}
 
@@ -215,16 +216,17 @@
 				<input type="hidden" name="tokenkey" value="{%$tokenkey.token_key%}"/>
 				<div class="espcms_bbs_form pt20">
 					<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
-					<div class="title"><div class="messageicon"></div><div class="messtitle">Message</div></div>
+					<div class="title"><div class="messageicon"></div><div class="messtitle">网站留言</div></div>
 					<div class="content">
 						<div class="espcms_form_group">
-							<label for="title" class="control_label">Title</label>
+							<label for="title" class="control_label">标题</label>
 							<div class="control_required">
 								<input type="text" name="title" id="title" class="col6 infoInput"/>
+								<span class="form_message">请填写不大于20个字符的中英文字符</span>
 							</div>
 						</div>
 						<div class="espcms_form_group">
-							<label for="username" class="control_label">Name</label>
+							<label for="username" class="control_label">姓名</label>
 							<div class="control_required"><input type="text" name="username" id="username" value="{%$member.alias%}" class="col5 infoInput"/></div>
 						</div>
 						<div class="espcms_form_group">
@@ -232,7 +234,7 @@
 							<div class="control_required"><input type="text" name="email" id="email" value="{%$member.email%}" class="col5 infoInput"/></div>
 						</div>
 						<div class="espcms_form_group">
-							<label for="content" class="control_label">Content</label>
+							<label for="content" class="control_label">内容</label>
 							<div class="control_required">
 								<textarea name="content" id="content" rows="6" class="col11 infoInput"></textarea>
 							</div>
@@ -241,8 +243,8 @@
 						<div class="espcms_form_group">
 							<label for="content" class="control_label"></label>
 							<div class="control_required f14">
-								<input type="radio" value="1" name="istype" onclick="ondisplayother('lastdiv2', 'displaytrue', 'lastdiv1', 'displaynone');" checked="checked"/> Don't fill in additional information&nbsp;
-								<input type="radio" value="2" name="istype" onclick="ondisplayother('lastdiv2', 'displaynone', 'lastdiv1', 'displaytrue')"/> Fill in the additional information
+								<input type="radio" value="1" name="istype" onclick="ondisplayother('lastdiv2', 'displaytrue', 'lastdiv1', 'displaynone');" checked="checked"/> 省略附加信息&nbsp;
+								<input type="radio" value="2" name="istype" onclick="ondisplayother('lastdiv2', 'displaynone', 'lastdiv1', 'displaytrue')"/> 填写附加信息
 							</div>
 						</div>
 
@@ -256,30 +258,30 @@
 								<div class="control_required"><input type="text" name="msn" value="{%$member.msn%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
-								<label class="control_label">Address</label>
+								<label class="control_label">联系地址</label>
 								<div class="control_required"><input type="text" name="address" value="{%$member.address%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
-								<label class="control_label">Tel</label>
+								<label class="control_label">电话</label>
 								<div class="control_required"><input type="text" name="tel" value="{%$member.tel%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
-								<label class="control_label">Mobile</label>
+								<label class="control_label">手机</label>
 								<div class="control_required"><input type="text" name="mobile" value="{%$member.mobile%}" class="col5 infoInput"/></div>
 							</div>
 						</div>
 						{%if $type.isseccode==1%}
 						<div class="espcms_form_group">
-							<label for="seccode" class="control_label">Security code</label>
+							<label for="seccode" class="control_label">验证码</label>
 							<div class="control_required">
 								<input type="text" id="seccode" name="seccode" class=" infoInput" maxlength="4" size="5" style="text-transform: uppercase;"/>
-								<img id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
+								<img title="点击更换验证码" id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
 							</div>
 						</div>
 						{%/if%}
 						<div class="espcms_form_group">
 							<label class="control_label"> </label>
-							<div class="control_required"><input type="submit" id="submit" class="button blue2" value="Submit"> </div>
+							<div class="control_required"><input type="submit" id="submit" class="button blue2" value="确认提交"> </div>
 						</div>
 					</div>
 					<b class="b5"></b><b class="b6"></b><b class="b7"></b><b class="b8"></b>
@@ -294,7 +296,7 @@
 				<li>
 					<div class="espcms_bbs_content_a_read_table">
 						<div class="espcms_index">
-							<span class="espcms_bbs_title">Title：{%$read.title%}</span>   <span class="espcms_bbs_auto">{%$read.username%}</span>    <span class="espcms_bbs_time">{%$read.addtime|timeformat(3)%}&nbsp;&nbsp; Read：{%$read.click%}&nbsp;&nbsp; Reply：{%$read.replynum%}</span>
+							<span class="espcms_bbs_title">主题：{%$read.title%}</span>   <span class="espcms_bbs_auto">{%$read.username%}</span>    <span class="espcms_bbs_time">留言时间：{%$read.addtime|timeformat(3)%}&nbsp;&nbsp; 阅读:{%$read.click%}&nbsp;&nbsp; 回复：{%$read.replynum%}</span>
 						</div>
 						<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
 						<div class="content oninage">{%$read.content|htmlcode('0')%}</div>
@@ -306,7 +308,7 @@
 				<li>
 					<div class="espcms_bbs_content_a_read_table">
 						<div class="espcms_index">
-							<span class="espcms_bbs_title">Reply Title：{%$array[i].title%}</span>   <span class="espcms_bbs_auto">{%if $array[i].adminid>0 %}Reply{%else%}{%$array[i].username%}{%/if%}</span>    <span class="espcms_bbs_time">{%$array[i].addtime|timeformat(3)%}</span>
+							<span class="espcms_bbs_title">回复主题：{%$array[i].title%}</span>   <span class="espcms_bbs_auto">{%if $array[i].adminid>0 %}管理员回复{%else%}{%$array[i].username%}{%/if%}</span>    <span class="espcms_bbs_time">留言时间：{%$array[i].addtime|timeformat(3)%}</span>
 						</div>
 						<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
 						<div class="content">{%$array[i].content|htmlcode('0')%}</div>
@@ -345,16 +347,17 @@
 					<input type="hidden" name="tokenkey" value="{%$tokenkey.token_key%}"/>
 					<div class="espcms_bbs_form pt20">
 						<b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
-						<div class="title"><div class="messageicon"></div><div class="messtitle">Reply</div></div>
+						<div class="title"><div class="messageicon"></div><div class="messtitle">我要回复</div></div>
 						<div class="content">
 							<div class="espcms_form_group">
-								<label for="title" class="control_label">Title</label>
+								<label for="title" class="control_label">标题</label>
 								<div class="control_required">
 									<input type="text" name="title" id="title" value="RE:{%$read.title%}" class="col6 infoInput"/>
+									<span class="form_message">请填写不大于20个字符的中英文字符</span>
 								</div>
 							</div>
 							<div class="espcms_form_group">
-								<label for="username" class="control_label">Name</label>
+								<label for="username" class="control_label">姓名</label>
 								<div class="control_required"><input type="text" name="username" id="username" value="{%$member.alias%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
@@ -362,7 +365,7 @@
 								<div class="control_required"><input type="text" name="email" id="email" value="{%$member.email%}" class="col5 infoInput"/></div>
 							</div>
 							<div class="espcms_form_group">
-								<label for="content" class="control_label">Content</label>
+								<label for="content" class="control_label">内容</label>
 								<div class="control_required">
 									<textarea name="content" id="content" rows="6" class="col11 infoInput"></textarea>
 								</div>
@@ -371,8 +374,8 @@
 							<div class="espcms_form_group">
 								<label for="content" class="control_label"></label>
 								<div class="control_required f14">
-									<input type="radio" value="1" name="istype" onclick="ondisplayother('lastdiv2', 'displaytrue', 'lastdiv1', 'displaynone');" checked="checked"/> Don't fill in additional information&nbsp;
-									<input type="radio" value="2" name="istype" onclick="ondisplayother('lastdiv2', 'displaynone', 'lastdiv1', 'displaytrue')"/> Fill in the additional information
+									<input type="radio" value="1" name="istype" onclick="ondisplayother('lastdiv2', 'displaytrue', 'lastdiv1', 'displaynone');" checked="checked"/> 省略附加信息&nbsp;
+									<input type="radio" value="2" name="istype" onclick="ondisplayother('lastdiv2', 'displaynone', 'lastdiv1', 'displaytrue')"/> 填写附加信息
 								</div>
 							</div>
 
@@ -386,30 +389,30 @@
 									<div class="control_required"><input type="text" name="msn" value="{%$member.msn%}" class="col5 infoInput"/></div>
 								</div>
 								<div class="espcms_form_group">
-									<label class="control_label">Address</label>
+									<label class="control_label">联系地址</label>
 									<div class="control_required"><input type="text" name="address" value="{%$member.address%}" class="col5 infoInput"/></div>
 								</div>
 								<div class="espcms_form_group">
-									<label class="control_label">Tel</label>
+									<label class="control_label">电话</label>
 									<div class="control_required"><input type="text" name="tel" value="{%$member.tel%}" class="col5 infoInput"/></div>
 								</div>
 								<div class="espcms_form_group">
-									<label class="control_label">Mobile</label>
+									<label class="control_label">手机</label>
 									<div class="control_required"><input type="text" name="mobile" value="{%$member.mobile%}" class="col5 infoInput"/></div>
 								</div>
 							</div>
 							{%if $type.isseccode==1%}
 							<div class="espcms_form_group">
-								<label for="seccode" class="control_label">Security code</label>
+								<label for="seccode" class="control_label">验证码</label>
 								<div class="control_required">
 									<input type="text" id="seccode" name="seccode" class=" infoInput" maxlength="4" size="5" style="text-transform: uppercase;"/>
-									<img id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
+									<img title="点击更换验证码" id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
 								</div>
 							</div>
 							{%/if%}
 							<div class="espcms_form_group">
 								<label class="control_label"> </label>
-								<div class="control_required"><input type="submit" id="submit" class="button blue2" value="Submit"> </div>
+								<div class="control_required"><input type="submit" id="submit" class="button blue2" value="确认回复"> </div>
 							</div>
 						</div>
 						<b class="b5"></b><b class="b6"></b><b class="b7"></b><b class="b8"></b>

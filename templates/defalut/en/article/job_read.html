@@ -15,6 +15,7 @@
 <link href="{%$rootpath%}css/espcms_public.css" rel="stylesheet" type="text/css" />
 <link href="{%$rootpath%}css/espcms_v5div.css" rel="stylesheet" type="text/css" />
 <link href="{%$rootpath%}css/espcms_page.css" rel="stylesheet" type="text/css" />
+<link href="{%$rootpath%}css/espcms_content.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="{%$rootdir%}index.php?ac=public&at=readpuv&did={%$read.did%}"></script>
 <script type="text/javascript">
 	$(window).load(function() {
@@ -84,6 +85,8 @@
 			{%/forlist%}
 		</ul>
 		{%/get%}
+
+		{%link file="en/public/left.html"%}
 	</div>
 	<div class="espcms_page_right">
 		<div class="espcms_page_typename">{%$type.typename%}</div>
@@ -92,7 +95,7 @@
 
 		<div class="espcms_news_title">
 			<h1>{%$read.title%}</h1>
-			{%$read.addtime|timeformat(3)%}  {%$read.author%}  {%$read.source%}  <script type="text/javascript" src="{%$rootdir%}index.php?ac=scriptout&at=click&did={%$read.did%}"></script>
+			{%$read.addtime|timeformat(3)%}  {%$read.author%}  {%$read.source%}  点击数：<script type="text/javascript" src="{%$rootdir%}index.php?ac=scriptout&at=click&did={%$read.did%}"></script>
 		</div>
 		<div class="espcms_page_right_line"></div>
 		<div class="espcms_book lh26 ti2">{%$read.content%}</div>

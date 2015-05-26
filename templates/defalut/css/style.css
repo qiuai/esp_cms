@@ -8,7 +8,7 @@ h1,h2,h3,h4,h5,h6{ font-size:12px; font-weight:400; margin:0px; padding:0px; lin
 i,u,s,em{text-decoration:none;font-style:normal;} 
 table{border-collapse:collapse;}
 td,th{padding:0;}
-img{border:none}
+img{border:none;vertical-align:top;}
 form,select{margin:0;}
 .mt40{margin-top:40px;}
 .mt30{margin-top:30px;}
@@ -168,6 +168,7 @@ textarea{resize:none; overflow:auto; outline:none;}
 .choice dl dd{color:#252525;font-size:14px;padding-top:10px;}
 
 .calendar,.dinance{background:#FFF;height:230px}
+.calendar{height:160px}
 .dinance ul{padding:0px 20px;width:750px;}
 .dinance ul li{line-height:36px;border-bottom:1px dashed #dedede;position:relative}
 .dinance ul li span{position:absolute;right:0px;top:0px;}
@@ -188,8 +189,28 @@ textarea{resize:none; overflow:auto; outline:none;}
 .mechanism a{width:275px;height:107px; overflow:hidden;float:left;margin:35px 0px 0px 20px;display:inline}
 .mechanism a img{ border:1px solid #ddd;}
 
+.hide{ display:none;}
+.button{background:url(../images/btn.jpg) no-repeat;width:100px;height:30px;border:none;cursor:pointer; vertical-align:middle;margin-left:10px;}
 
+#marqueeTopParent .up{ background: url(../images/up.jpg) left 6px no-repeat;text-indent: 20px;}
+#marqueeTopParent .drop{ background: url(../images/up.jpg) left -31px no-repeat; text-indent: 20px;}
 
-
-
+/* 存款*/
+.userBox{border:1px solid #EEE;padding:20px; margin:20px;min-height:600px;}
+.userBox .userFrom{width:600px;margin:auto;padding:10px 0 0;}
+.userBox .userFrom li.intervalLine{font:0/0 arial;border-bottom:1px solid #EEE;}
+.userBox .userFrom li .bankList{width:840px;}
+.userBox .userFrom li .bankList dd{float:left;border:2px solid #EEE;margin:0 10px 20px 0;width:189px;height:48px;text-align:center;line-height:48px;font-size:14px;}
+.userBox .userFrom li .bankList dd.curr{border-color:#e71d1d;}
+.userBox .userFrom li .bankList dd input{vertical-align:middle;margin-left:8px;}
+.userBox .userFrom li .bankList dd{}
+.userBox .userFrom li{overflow:hidden;margin-bottom:10px;line-height:40px;}
+.userBox .userFrom li label{width:90px;display:inline-block;margin-right:20px;text-align:right;font-size:14px;}
+.userBox .userFrom li .regInput{border:1px solid #9f9e9e;height:38px;box-shadow:0 3px 5px #EEE inset;text-indent:10px;border-radius:4px;width:260px;}
+.userBox .userFrom li select.regInput{padding:8px;padding-left:0;}
+.userBox .userFrom li .verification{margin:6px 0 0 10px;display:inline-block;vertical-align:top;height:30px;}
+.userBox .userFrom li .regSubmitBtn{background-color:#e31f21;width:262px;height:50px;border:0;color:#FFF;cursor:pointer;font-size:20px;border-radius:4px;}
+.userBox .userFrom li .prompt{margin-left:10px;}
+.userBox .userFrom li .prompt.error{color:#e31f21;}
+.userBox .userFrom li .prompt.pass{color:#59b888;}
 

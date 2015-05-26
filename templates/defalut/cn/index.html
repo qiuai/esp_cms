@@ -7,17 +7,23 @@
     	<!-- 开户 -->
          <div class="banner_box">
             <div class="account">
+            	<form method="get" action="{%$rootdir%}index.php?ac=member&amp;at=reg">
                 <h6>欢迎您加入skyline</h6>
                 <dl>
                     <dt>开设交易账户</dt>
-                    <dd><input name="" type="text" value="名" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
-                    <dd><input name="" type="text" value="姓" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
-                    <dd><input name="" type="text" value="邮箱" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
-                    <dd><input name="" type="text" value="我的手机" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
-                    <dd><input name="" type="text" value="选择您的密码" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="lastName" type="text" value="名" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="firstName" type="text" value="姓" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="email" type="text" value="邮箱" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="phone" type="text" value="我的手机" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="password" type="text" value="选择您的密码" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
                 </dl>
-                <span><input name="" type="button"></span>
+                <input type="hidden" name="ac" value="member">
+                <input type="hidden" name="at" value="reg">
+                <span><input type="submit" value=""></span>
+                </form>
             </div>
+            <script>
+			</script>
         </div>
         
         {%get name=bann class=atid:1,adtype:1,max:3%}
@@ -33,11 +39,7 @@
 <!-- 广告End -->
 <!-- 数据标题 -->
 <div class="data">
-	<div class="warp">
-       
-dd
-
-    </div>
+	<div class="warp" id="marqueeTopParent"></div>
 </div>
 <!-- 数据标题End -->
 <!-- 内容区域 -->
@@ -50,16 +52,55 @@ dd
       
                      
 <link href="http://spotplatform.sky9fx.com/appProxy/fonts.css" media="screen" rel="stylesheet" type="text/css"/>
-<script src="http://spotplatform.qooptions.com/SpotOptionPlugin.js"></script>
-<script src="http://localhost/syk/templates/defalut/js/index.js"></script>
-
+<script src="http://spotplatform.sky9fx.com/SpotOptionPlugin.js"></script>
+<script type="text/javascript">
+	var urlParams;
+	var platDir = 'LTR';
+	(window.onpopstate = function () {
+		var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			query  = window.location.search.substring(1);
+	
+		urlParams = {};
+		while (match = search.exec(query))
+		   urlParams[decode(match[1])] = decode(match[2]);
+	})();
+	
+	
+	if (typeof(urlParams.lang) == "undefined")
+		platformLang= "{%admin_LNG%}";
+	else{
+		platformLang = urlParams.lang;
+		if(urlParams.lang == "ar" || urlParams.lang == "he")
+			 platDir = 'RTL';
+	}
+	
+	SO.load({
+		lang : platformLang,
+		 dir: platDir,
+		cookieOptions : {
+			domain : '.vonwey.com'
+		},
+		packages : {
+			RegularPlatform : {
+				settings : {
+					selector : '#so_container'
+				}
+			},
+			Clock : {},
+			Balance : {}
+		}
+	});
+</script>
 <div id="so_container"></div>
 
 
                 </div>
                 <div class="platform">
-                	<a href="#" class="platform_left"><img src="{%$rootpath%}images/ab_left.jpg"></a>
-                    <a href="#" class="platform_right"><img src="{%$rootpath%}images/ab_right.jpg"></a>
+                	<a href="{%$rootdir%}index.php?ac=member&amp;at=reg" class="platform_left"><img src="{%$rootpath%}images/ab_left.jpg"></a>
+                    <a href="{%$rootdir%}index.php?ac=member&amp;at=reg" class="platform_right"><img src="{%$rootpath%}images/ab_right.jpg"></a>
                 </div>
             </div>
         </div>
@@ -111,7 +152,7 @@ dd
                     {%/get%}
                 </div>
                 <div class="mt30"><img src="{%$rootpath%}images/tp_02.jpg"></div>
-                <div class="mt30"><img src="{%$rootpath%}images/tp_03.jpg"></div>
+                <div class="mt30"><a href="{%$rootdir%}index.php?ac=payment&amp;at=order"><img src="{%$rootpath%}images/tp_03.jpg"></a></div>
             </div>
         </div>
     </div>
@@ -128,18 +169,18 @@ dd
 	<div class="content clear">
     	<div class="content_left">
         	<div class="trade">
-                <div class="title_top"><img src="{%$rootpath%}images/rl.jpg">财经日历<a href="#">更多>></a></div>
+                <div class="title_top"><img src="{%$rootpath%}images/rl.jpg">财经日历<!--<a href="#">更多>>--></a></div>
                 <div class="calendar">
                		 <iframe width="790" height="230" scrolling="no" frameborder="0" src="http://www2.m-
-finance.net:9090/lfc/website/tc/iframe/econdata_home.jsp?data=1&amp;lang=big5&amp;parentpath=http%3A%2F%2Fwww.lungfu-
+finance.net:9090/lfc/website/cn/iframe/econdata_home.jsp?data=1&amp;lang=big5&amp;parentpath=http%3A%2F%2Fwww.lungfu-
 capital.com%2Fjinrongguanli%2Ftc%2F" id="iframeContent002"></iframe>
                 </div>
             </div>
         	<div class="trade mt30">
-                <div class="title_top"><img src="{%$rootpath%}images/cj.jpg">财经新闻<a href="#">更多>></a></div>
+                <div class="title_top"><img src="{%$rootpath%}images/cj.jpg">财经新闻<!--<a href="#">更多>>--></a></div>
                 <div class="dinance">
                     <iframe width="790" height="300" scrolling="no" frameborder="0" src="http://www2.m-
-finance.net:9090/lfc/website/tc/iframe/day_plan_home.jsp?parentpath=http%3A%2F%2Fwww.lungfu-capital.com%2Fjinrongguanli
+finance.net:9090/lfc/website/cn/iframe/day_plan_home.jsp?parentpath=http%3A%2F%2Fwww.lungfu-capital.com%2Fjinrongguanli
 %2Ftc%2F" id="iframeContent001"></iframe>
                 </div>
             </div>

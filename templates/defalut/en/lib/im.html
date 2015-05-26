@@ -23,7 +23,7 @@
 			<ul>
 				{%forlist from=$array key=i%}
 					{%if $array[i].type==4%}
-						<li class="displaynone">{%$array[i].code|htmlcode(1)%}</li>
+						<li{%if $array[i].isnone==0%} class="displaynone"{%/if%}>{%$array[i].code|htmlcode(1)%}</li>
 					{%else%}
 						{%if $array[i].istype==1%}
 							<li>
@@ -72,7 +72,9 @@
 				<li><a class="button red" href="javascript:closeim();">{%$lngpack.close_im%}</a></li>
 				{%if $wxread.filename%}
 				<li><img src="{%$wxread.filename|zoom(120,120,'',3)%}"</li>
+				<li>体验微信请扫一扫</li>
 				{%/if%}
+
 			</ul>
 		</div>
 	</div>
@@ -89,7 +91,7 @@
 			<ul>
 				{%forlist from=$array key=i%}
 					{%if $array[i].type==4%}
-						<li class="displaynone">{%$array[i].code|htmlcode(1)%}</li>
+						<li{%if $array[i].isnone==0%} class="displaynone"{%/if%}>{%$array[i].code|htmlcode(1)%}</li>
 					{%else%}
 						{%if $array[i].istype==1%}
 							<li>
@@ -138,6 +140,7 @@
 				<li><a class="button red" href="javascript:closeim();">{%$lngpack.close_im%}</a></li>
 				{%if $wxread.filename%}
 				<li><img src="{%$wxread.filename|zoom(120,120,'',3)%}"</li>
+				<li>体验微信请扫一扫</li>
 				{%/if%}
 			</ul>
 		</div>

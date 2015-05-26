@@ -85,6 +85,8 @@
 			{%/forlist%}
 		</ul>
 		{%/get%}
+
+		{%link file="en/public/left.html"%}
 	</div>
 
 	<div class="espcms_page_right">
@@ -100,8 +102,8 @@
 				<li>
 					<div class="p-img ld"><a href="{%$array[i].link%}" title="{%$array[i].title%}"><img src="{%$array[i].pic|zoom(137,132,'',2)%}" alt="{%$array[i].title%}"/></a></div>
 					<div class="p-name"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></div>
-					<div class="p-price"><strong>￥{%$array[i].bprice%}</strong></div>
-					<div class="p-botton"><a href="{%$array[i].buylink%}" class="button rosy">Order</a></div>
+					<div class="p-price">购买价：<strong>￥{%$array[i].bprice%}</strong></div>
+					<div class="p-botton"><a href="{%$array[i].buylink%}" class="button rosy">点击购买</a></div>
 				</li>
 				{%/forlist%}
 			</ul>
@@ -117,7 +119,7 @@
 		</div>
 		{%else%}
 		<div class="espcms_page_botton">
-			<div id="pagelist">No content</div>
+			<div id="pagelist">暂无内容</div>
 		</div>
 		{%/if%}
 	</div>

@@ -7,11 +7,11 @@
 if (isset($modulesid) && $modulesid == TRUE) {
 	$i = isset($modules) ? count($modules) : 0;
 
-	$modules[$i]['plugname'] = '货到付款';
+	$modules[$i]['plugname'] = '线下支付';
 
 	$modules[$i]['code'] = basename(__FILE__, '.php');
 
-	$modules[$i]['desc'] = '货到付款支付的城市有北京、上海、广州、深圳、武汉、长春、重庆';
+	$modules[$i]['desc'] = '线下支付';
 
 	$modules[$i]['is_cod'] = '1';
 
@@ -37,7 +37,7 @@ class downpay {
 	}
 
 	function get_code($order, $payment, $return_url, $notify_url) {
-		return '货到付款';
+		return '线下支付';
 	}
 
 	function respond($payment = null, $orderread = array()) {

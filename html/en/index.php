@@ -8,7 +8,7 @@ define('adminfile', 'admin');
 define('admin_ClassURL', 'http://' . $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/')) . '/');
 define('admin_htmlDIR', 'html/en/');
 define('admin_URL', str_replace(admin_htmlDIR, '', admin_ClassURL));
-define('admin_ROOT','E:\www\syk\/');
+define('admin_ROOT',dirname(dirname(dirname(__FILE__))) . '/');
 define('admin_FROM', true);
 define('admin_WAP', false);
 define('admin_http', $_SERVER['HTTP_HOST']);

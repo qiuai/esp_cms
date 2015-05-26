@@ -13,29 +13,30 @@
 <form name="memberreg" id="memberreg" method="post" action="{%$mlink.regsave%}" onsubmit="return memberdbreg('{%$mem_regisseccode%}')">
 <input type="hidden" name="tokenkey" value="{%$tokenkey.token_key%}"/>
 <div class="espcms_member_login_center espcms_formwidth_c">
-	<div class="title mb20"><div class="messageicon"></div><div class="messtitle">Create an Account</div></div>
+	<div class="title mb20"><div class="messageicon"></div><div class="messtitle">会员注册</div></div>
 	<div class="espcms_form_group">
-		<label for="title" class="control_label16">ID</label>
+		<label for="title" class="control_label16">用户名</label>
 		<div class="control_required20">
 			<input type="text" name="username" id="username" class="col5 infoInput" value="" size="20" maxlength="15" onblur="checktypename('username',this.value,'{%$mlink.checkusername%}','usermsg','{%$lngpack.mem_reg_ok%}','{%$lngpack.mem_reg_no%}','regsubmit');"/>
-			<span id="usermsg" class="form_message"></span>
+			<span id="usermsg" class="form_message">请输入1-16个英文或数字组成的字符,首字必须为英文字符</span>
 		</div>
 	</div>
 	<div class="espcms_form_group">
-		<label for="title" class="control_label16">Email Address</label>
+		<label for="title" class="control_label16">电子邮箱</label>
 		<div class="control_required20">
 			<input type="text" name="email" id="email" class="col5 infoInput"  size="40" maxlength="100" onblur="checktypename('email',this.value,'{%$mlink.checkusername%}','mailmsg','{%$lngpack.mem_regemail_ok%}','{%$lngpack.mem_regemail_no%}','regsubmit');"/>
-			<span id="mailmsg" class="form_message"></span>
+			<span id="mailmsg" class="form_message">请真实填写您的邮件，用于密码找回和相关通知服务</span>
 		</div>
 	</div>
 	<div class="espcms_form_group">
-		<label for="title" class="control_label16">Password</label>
+		<label for="title" class="control_label16">密&nbsp;&nbsp;&nbsp; 码</label>
 		<div class="control_required20">
 			<input type="password" name="password" id="password"  class="col4 infoInput" size="18" maxlength="15"/>
+			<span class="form_message">5－15 个字符，包括英文字母、中文、数字、下划线</span>
 		</div>
 	</div>
 	<div class="espcms_form_group">
-		<label for="title" class="control_label16">Reenter password</label>
+		<label for="title" class="control_label16">重复密码</label>
 		<div class="control_required20">
 			<input type="password" name="password2" id="password2" class="col4 infoInput" size="18" maxlength="15"/>
 		</div>
@@ -84,21 +85,21 @@
 	{%/if%}
 	{%if $mem_regisseccode==1%}
 	<div class="espcms_form_group">
-		<label for="username" class="control_label">Security code</label>
+		<label for="username" class="control_label">验证码</label>
 		<div class="control_required">
 			<input type="text" id="seccode" name="seccode" class="infoInput" maxlength="4" size="5" style="text-transform: uppercase;"/>
-			<img title="Enter code shown in image" id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
+			<img title="点击更换验证码" id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
 		</div>
 	</div>
 	{%/if%}
 	<div class="espcms_form_group">
 		<label class="control_label16"> </label>
-		<div class="control_required20"><input type="checkbox" name="agree" id="agree" value="1" /> <a target="_blank" href="{%$reglink%}">Agree to the terms of service (see clause first?)</a></div>
+		<div class="control_required20"><input type="checkbox" name="agree" id="agree" value="1" /> <a target="_blank" href="{%$reglink%}" title="您是否同意服务条款">同意服务条款（先看看条款？）</a></div>
 	</div>
 	<div class="espcms_form_group">
 		<label class="control_label16"> </label>
 		<div class="control_required20">
-			<input type="submit" id="submit" class="button blue2" value="Reg"/>
+			<input type="submit" id="submit" class="button blue2" value="确定注册"/>
 		</div>
 	</div>
 </div>

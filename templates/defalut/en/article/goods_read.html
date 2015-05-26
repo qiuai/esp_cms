@@ -19,6 +19,7 @@
 <link href="{%$rootpath%}css/espcms_v5div.css" rel="stylesheet" type="text/css" />
 <link href="{%$rootpath%}css/espcms_page.css" rel="stylesheet" type="text/css" />
 <link href="{%$rootpath%}css/slider.css" rel="stylesheet" type="text/css" />
+<link href="{%$rootpath%}css/espcms_content.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="{%$rootdir%}index.php?ac=public&at=readpuv&did={%$read.did%}"></script>
 <script type="text/javascript">
 	$(window).load(function() {
@@ -95,6 +96,8 @@
 			{%/forlist%}
 		</ul>
 		{%/get%}
+
+		{%link file="en/public/left.html"%}
 	</div>
 	<div class="espcms_page_right">
 		<div class="espcms_page_typename">{%$type.typename%}</div>
@@ -102,23 +105,23 @@
 		<div class="espcms_page_right_line"></div>
 
 		<div class="espcms_book">
-			<div class="espcms_pro_pic"><img src="{%$read.pic|zoom(390,260)%}" alt="{%$read.title%}" style="width:390px;height:260px;"/></div>
+			<div class="espcms_pro_pic"><img src="{%$read.pic|zoom(390,260,'',3)%}" alt="{%$read.title%}" style="width:390px;height:260px;"/></div>
 			<dl class="espcms_pro_title">
 				<dt><h1>{%$read.title%}</h1></dt>
 				<dd class="f14">
-					TAG：
+					关 键 字：
 					{%forlist from=$tag key=i%}
 					<a target="_blank" class="espcms_key keyword{%key=>i%}" title="{%$tag[i].title%}" href="{%$tag[i].link%}">{%$tag[i].title%}</a>
 					{%/forlist%}
 				</dd>
-				<dd class="f14">Product number：{%$read.tsn%}</dd>
-				<dd class="f14">Market Price：￥{%$read.oprice%}</dd>
-				<dd class="f14">Buying price：<span class="espcms_priceclass">￥{%$read.bprice%}</span></dd>
-				<dd class="espcms_pro_orderbotton"><a target="_blank" class="button blue2" href="{%$read.buylink%}">Order</a>&nbsp;<a target="_blank" class="button blue2" href="{%$read.enqlink%}">Enquiry</a></dd>
+				<dd class="f14">产品编号：{%$read.tsn%}</dd>
+				<dd class="f14">市场价格：￥{%$read.oprice%}</dd>
+				<dd class="f14">购买价格：<span class="espcms_priceclass">￥{%$read.bprice%}</span></dd>
+				<dd class="espcms_pro_orderbotton"><a target="_blank" class="button blue2" href="{%$read.buylink%}">我要购买</a>&nbsp;<a target="_blank" class="button blue2" href="{%$read.enqlink%}">我要询价</a></dd>
 			</dl>
 		</div>
 		{%if count($photo)>0%}
-		<div class="espcms_page_labelname">Photos View</div>
+		<div class="espcms_page_labelname">图片展示</div>
 		<div class="espcms_page_right_line"></div>
 		<div class="espcms_pro_photo">
 			<ul id="mycarousel" class="jcarousel-skin-tango">
@@ -129,15 +132,15 @@
 		</div>
 		{%/if%}
 
-		<div class="espcms_page_labelname">Description</div>
+		<div class="espcms_page_labelname">产品描述</div>
 		<div class="espcms_page_right_line"></div>
-		<div class="espcms_book_padding15 lh26 ti2">{%$read.content%}</div>
+		<div class="espcms_book_padding15 lh26 ">{%$read.content%}</div>
 
 		{% if count($page)>0 %}
 		<div class="espcms_page_botton">
 			<div id="pagination" class="pagination">
 				{%if $read.plink!=''%}
-				<span><a href="{%$read.plink%}">Previous</a></span>
+				<span><a href="{%$read.plink%}">上一页</a></span>
 				{%/if%}
 				{%forlist from=$page key=i%}
 				{%if $page[i].n==1%}
@@ -147,14 +150,14 @@
 				{%/if%}
 				{%/forlist%}
 				{%if $read.nlink!=''%}
-				<span><a href="{%$read.nlink%}">Next</a></span>
+				<span><a href="{%$read.nlink%}">下一页</a></span>
 				{%/if%}
 			</div>
 		</div>
 		{%/if%}
 
 		{%if $read.linkdid!=''%}
-		<div class="espcms_page_labelname">Related Products</div>
+		<div class="espcms_page_labelname">相关产品</div>
 		<div class="espcms_page_right_line"></div>
 		<div class="espcms_pic_index pb20">
 			<ul class="lh">
@@ -163,15 +166,15 @@
 				<li>
 					<div class="p-img ld"><a href="{%$array[i].link%}" title="{%$array[i].title%}"><img src="{%$array[i].pic|zoom(137,132,'',2)%}" alt="{%$array[i].title%}"/></a></div>
 					<div class="p-name"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></div>
-					<div class="p-price"><strong>￥{%$array[i].bprice%}</strong></div>
-					<div class="p-botton"><a href="{%$array[i].buylink%}" class="button dahui">Order</a></div>
+					<div class="p-price">购买价：<strong>￥{%$array[i].bprice%}</strong></div>
+					<div class="p-botton"><a href="{%$array[i].buylink%}" class="button dahui">点击购买</a></div>
 				</li>
 				{%/forlist%}
 				{%/get%}
 			</ul>
 		</div>
 		{%/if%}
-		<div class="espcms_page_labelname">Message</div>
+		<div class="espcms_page_labelname">在线留言</div>
 		<div class="espcms_page_right_line"></div>
 		<div class="espcms_book pb20">
 			{%list name=messlist class=did:$read.did,max:5%}

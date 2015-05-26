@@ -1,0 +1,32 @@
+
+{%link file="en/public/header.html"%}
+
+<!-- 广告 -->
+<div class="vid_banner"></div>
+<!-- 广告End -->
+<!-- 面包屑 -->
+<div class="crumbs">
+	<div class="warp">{%list name=path class=type:type,id:$type.tid%}</div>
+</div>
+<!-- 面包屑End -->
+<!-- 内容区域 -->
+<div class="warp clear">
+	<div class="vid">
+    	<div class="title">{%$type.typename%}</div>
+
+        {%if count($array) > 0%}
+        <div class="vidlist clear">
+            {%forlist from=$array key=i%}
+        	<dl>
+            	<dt><a title="{%$array[i].title%}" href="{%$array[i].link%}"><img src="{%$rootdir%}{%$array[i].pic%}"></a></dt>
+                <dd><a title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle%}</a></dd>
+            </dl>
+            {%/forlist%}
+        </div>
+        {%/if%}
+
+  </div>
+</div>
+<!-- 内容区域End -->
+
+{%link file="en/public/footer.html"%}

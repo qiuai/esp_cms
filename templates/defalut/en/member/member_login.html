@@ -36,33 +36,33 @@
 <div class="espcms_page">
 	<form name="mainform" method="post" action="{%$mlink.logindb%}" onSubmit="return memberlogin('{%$mem_isseccode%}')">
 	<input type="hidden" name="tokenkey" value="{%$tokenkey.token_key%}"/>
-	<div class="espcms_member_login_center espcms_formwidth_b">
-		<div class="title mb20"><div class="messageicon"></div><div class="messtitle">Sign In</div></div>
+	<div class="espcms_member_login_center espcms_formwidth_a">
+		<div class="title mb20"><div class="messageicon"></div><div class="messtitle">会员登陆</div></div>
 		<div class="espcms_form_group">
-			<label for="title" class="control_label16">ID</label>
+			<label for="title" class="control_label16">用户名</label>
 			<div class="control_required20">
 				<input type="text" name="username" id="username" class="col7 infoInput"/>
 			</div>
 		</div>
 		<div class="espcms_form_group">
-			<label for="username" class="control_label16">Password</label>
+			<label for="username" class="control_label16">密码</label>
 			<div class="control_required20"><input type="password" name="password" id="password" class="col7 infoInput"/></div>
 		</div>
 		{%if $mem_isseccode==1%}
 		<div class="espcms_form_group">
-			<label for="seccode" class="control_label16">Security code</label>
+			<label for="email" class="control_label16">验证码</label>
 			<div class="control_required20">
 				<input type="text" id="seccode" name="seccode" class="infoInput" maxlength="4" size="5" style="text-transform: uppercase;"/>
-				<img id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
+				<img title="点击更换验证码" id="memberseccodesrc" onclick="sessionimg('memberseccodesrc','{%$rootdir%}')" src="{%$seccodelink%}" style="cursor: pointer;height:28px;margin-left:5px;" align="absmiddle"/>
 			</div>
 		</div>
 		{%/if%}
 		<div class="espcms_form_group">
 			<label class="control_label16"> </label>
 			<div class="control_required20">
-				<input type="submit" id="submit" class="button blue2" value="Login"/>
-				<a class="button red" href="{%$mlink.reg%}">Create a New Account</a>
-				<a class="button blue2" href="{%$mlink.lostpasswd%}">Forgot your password?</a>
+				<input type="submit" id="submit" class="button blue2" value="登陆"/>
+				<a class="button red" href="{%$mlink.reg%}">注册</a>
+				<a class="button blue2" href="{%$mlink.lostpasswd%}">找回密码</a>
 			</div>
 		</div>
 	</div>

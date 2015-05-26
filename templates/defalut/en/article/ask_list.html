@@ -1,0 +1,52 @@
+
+{%link file="en/public/header.html"%}
+<!-- 广告 -->
+<div class="banner_jl"></div>
+<!-- 广告End -->
+<!-- 面包屑 -->
+<div class="crumbs">
+	<div class="warp">{%list name=path class=type:type,id:$type.tid%}</div>
+</div>
+<!-- 面包屑End -->
+<!-- 内容区域 -->
+<div class="warp clear">
+	<div class="cont_left">
+    	{%link file="en/public/left.html"%}
+    </div>
+    <div class="cont_right">
+    	<div class="title">{%$type.typename%}</div>
+        <div class="ny_zb">
+            <div class="ny_zblb1">
+                <ul class="clearfix">
+                    {%if count($array) > 0%}
+                    {%forlist from=$array key=i%}
+                    <li>
+                        <a {%if $i==0%}class="cur"{%/if%} href="javascript:void(0)"><img src="{%$rootpath%}images/q.jpg">{%$array[i].title%}</a>
+                        <ul {%if $i==0%}style="display:block;"{%/if%}>               
+                            <li><span>{%$array[i].description%}</span></li>               
+                        </ul>
+                    </li>
+                    {%/forlist%}
+                    {%/if%}
+                </ul>
+            </div>
+		</div>
+    </div>
+</div>
+<!-- 内容区域End -->
+
+<!-- 引入JS -->
+<script type="text/javascript" src="{%$rootpath%}js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+	$(".ny_zblb1 ul li").click(function(){
+		var thisSpan=$(this);
+		$(".ny_zblb1 ul li ul").prev("a").removeClass("cur");
+		$("ul", this).prev("a").addClass("cur");
+		$(this).children("ul").slideDown("fast");
+		$(this).siblings().children("ul").slideUp("fast");
+	})
+});
+</script>
+
+{%link file="en/public/footer.html"%}

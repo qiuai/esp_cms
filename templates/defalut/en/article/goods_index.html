@@ -85,7 +85,7 @@
 		</ul>
 		{%/get%}
 
-		<h2 style="margin-top: 15px;">BRANDS</h2>
+		<h2 style="margin-top: 15px;">品牌列表</h2>
 		{%get name=subtype class=mid:$type.mid%}
 		<ul class="espcms_three_one">
 			{%forlist from=$array key=i%}
@@ -94,7 +94,7 @@
 		</ul>
 		{%/get%}
 
-		{%link file="en/public/left_tag.html"%}
+		{%link file="en/public/left.html"%}
 	</div>
 
 	<div class="espcms_page_right">
@@ -105,31 +105,31 @@
 		<div class="espcms_pic_index">
 			<div class="hd">
 				<ul>
-					<li>Latest Product</li>
-					<li>Recommended Product</li>
-					<li>Hot Commodities</li>
+					<li>推荐产品</li>
+					<li>最新产品</li>
+					<li>热点商品</li>
 				</ul>
 			</div>
 			<div class="bd">
 				<ul class="lh">
-					{%get name=list class=mid:$type.mid,tid:$type.tid,max:5%}
+					{%get name=list class=mid:$type.mid,tid:$type.tid,max:5,dlid:3%}
 					{%forlist from=$array key=i%}
 					<li>
 						<div class="p-img ld"><a href="{%$array[i].link%}" title="{%$array[i].title%}"><img src="{%$array[i].pic|zoom(137,132,'',2)%}" alt="{%$array[i].title%}"/></a></div>
 						<div class="p-name"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></div>
-						<div class="p-price"><strong>￥{%$array[i].bprice%}</strong></div>
+						<div class="p-price">购买价：<strong>￥{%$array[i].bprice%}</strong></div>
 					</li>
 					{%/forlist%}
 					{%/get%}
 				</ul>
 
 				<ul class="lh">
-					{%get name=list class=mid:$type.mid,tid:$type.tid,max:5,dlid:2%}
+					{%get name=list class=mid:$type.mid,tid:$type.tid,max:5%}
 					{%forlist from=$array key=i%}
 					<li>
 						<div class="p-img ld"><a href="{%$array[i].link%}" title="{%$array[i].title%}"><img src="{%$array[i].pic|zoom(137,132,'',2)%}" alt="{%$array[i].title%}"/></a></div>
 						<div class="p-name"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></div>
-						<div class="p-price"><strong>￥{%$array[i].bprice%}</strong></div>
+						<div class="p-price">购买价：<strong>￥{%$array[i].bprice%}</strong></div>
 					</li>
 					{%/forlist%}
 					{%/get%}
@@ -141,7 +141,7 @@
 					<li>
 						<div class="p-img ld"><a href="{%$array[i].link%}" title="{%$array[i].title%}"><img src="{%$array[i].pic|zoom(137,132,'',2)%}" alt="{%$array[i].title%}"/></a></div>
 						<div class="p-name"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></div>
-						<div class="p-price"><strong>￥{%$array[i].bprice%}</strong></div>
+						<div class="p-price">购买价：<strong>￥{%$array[i].bprice%}</strong></div>
 					</li>
 					{%/forlist%}
 					{%/get%}
@@ -149,7 +149,7 @@
 			</div>
 			<script type="text/javascript">jQuery(".espcms_pic_index").slide({delayTime: 0});</script>
 		</div>
-		<div class="espcms_page_typename">Latest Product</div>
+		<div class="espcms_page_typename">最新产品列表</div>
 		<div class="espcms_page_right_line"></div>
 		<div class="espcms_pic_index pb20">
 			<ul class="lh">
@@ -158,8 +158,8 @@
 				<li>
 					<div class="p-img ld"><a href="{%$array[i].link%}" title="{%$array[i].title%}"><img src="{%$array[i].pic|zoom(137,132,'',2)%}" alt="{%$array[i].title%}"/></a></div>
 					<div class="p-name"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></div>
-					<div class="p-price"><strong>￥{%$array[i].bprice%}</strong></div>
-					<div class="p-botton"><a href="{%$array[i].buylink%}" class="button rosy">Order</a></div>
+					<div class="p-price">购买价：<strong>￥{%$array[i].bprice%}</strong></div>
+					<div class="p-botton"><a href="{%$array[i].buylink%}" class="button rosy">点击购买</a></div>
 				</li>
 				{%/forlist%}
 				{%/get%}

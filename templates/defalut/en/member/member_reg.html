@@ -1,0 +1,58 @@
+
+{%link file="en/public/header.html"%}
+
+<!-- 面包屑 -->
+<div class="crumbs">
+	<div class="warp"><a href="{%$rootdir%}">首页</a>
+	&gt; <a href="{%$rootdir%}index.php?ac=member&amp;at=reg">用户注册</a>
+	</div>
+</div>
+<!-- 面包屑End -->
+<!-- 内容区域 -->
+<div class="warp clear">
+	<link href="http://spotplatform.sky9fx.com/appProxy/fonts.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="http://spotplatform.sky9fx.com/SpotOptionPlugin.js"></script>
+    <script type="text/javascript">
+    var urlParams;
+    var platDir = 'LTR';
+    (window.onpopstate = function () {
+        var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.search.substring(1);
+        urlParams = {};
+        while (match = search.exec(query))
+           urlParams[decode(match[1])] = decode(match[2]);
+    })();
+    if (typeof(urlParams.lang) == "undefined")
+        platformLang= "{%admin_LNG%}";
+    else{
+        platformLang = urlParams.lang;
+        if(urlParams.lang == "ar" || urlParams.lang == "he")
+             platDir = 'RTL';
+    }
+        SO.load({
+            lang : platformLang,
+            dir: platDir,
+            cookieOptions : {
+                domain : '.vonwey.com'
+            },                
+            packages : {
+                OpenAccount : {
+                    settings : {
+                        selector : '#so_container',
+						fieldsData:{
+	        				firstName:"{%$_GET['firstName']%}",lastName:"{%$_GET['lastName']%}",email:"{%$_GET['email']%}",phonePrefix:'86',phoneArea:'',phone:"{%$_GET['phone']%}"
+	    				}
+                    }
+                },
+                Clock : {}
+            }
+        });
+    </script>
+    <div id="so_container"></div>
+</div>
+<!-- 内容区域End -->
+
+{%link file="en/public/footer.html"%}

@@ -1,156 +1,251 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>{%$lngpack.sitename%}</title>
-<meta name="keywords" content="{%$lngpack.keyword%}" />
-<meta name="description" content="{%$lngpack.description%}" />
-<script type="text/javascript" src="{%$rootdir%}js/jquery.js"></script>
-<script type="text/javascript" src="{%$rootdir%}js/jquery.Slide.js"></script>
-<link href="{%$rootpath%}css/espcms_public.css" rel="stylesheet" type="text/css" />
-<link href="{%$rootpath%}css/espcms_v5div.css" rel="stylesheet" type="text/css" />
-<link href="{%$rootpath%}css/slider.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="{%$rootdir%}index.php?ac=scriptout&at=waplink"></script>
-<script type="text/javascript">
-	$(window).load(function() {
-		$("#clickmenubotton li span").hover(function() {
-			$(this).addClass("menuhover");
-			$(this).parent().find("ul.subnav").slideDown('fast').show();
-			$(this).parent().hover(function() {
-			}, function() {
-				$(this).parent().find("ul.subnav").fadeOut('fast');
-				$(this).parent().find("span").removeClass("menuhover");
-			});
-		});
-	});
-</script>
-</head>
+{%link file="en/public/header.html"%}
 
-<body>
-{%link file="en/public/head.html"%}
-<div class="espcms_slide">
-	<div class="bd">
-		{%get name=bann class=atid:6,adtype:1,max:3%}
-		<ul>
+<!-- 广告 -->
+<div class="banenr">
+    <div class="flexslider">
+    	<!-- 开户 -->
+         <div class="banner_box">
+            <div class="account">
+            	<form method="get" action="{%$rootdir%}index.php?ac=member&amp;at=reg">
+                <h6>欢迎您加入skyline</h6>
+                <dl>
+                    <dt>开设交易账户</dt>
+                    <dd><input name="lastName" type="text" value="名" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="firstName" type="text" value="姓" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="email" type="text" value="邮箱" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="phone" type="text" value="我的手机" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                    <dd><input name="password" type="text" value="选择您的密码" onFocus="this.value=''" onBlur="if(!value){value=defaultValue;}"></dd>
+                </dl>
+                <input type="hidden" name="ac" value="member">
+                <input type="hidden" name="at" value="reg">
+                <span><input type="submit" value=""></span>
+                </form>
+            </div>
+            <script>
+			</script>
+        </div>
+        
+        {%get name=bann class=atid:1,adtype:1,max:3%}
+		<ul class="slides">
 			{%forlist from=$array key=i%}
-			<li _src="url({%$rootdir%}{%$array[i].filename%})" style="background:#eafaff center 0 no-repeat;"><a alt="{%$array[i].title%}" target="_blank" href="{%$array[i].url%}"></a></li>
+            <li style="background: url({%$rootdir%}{%$array[i].filename%}) 50% 0 no-repeat;"><a alt="{%$array[i].title%}" target="_blank" href="{%$array[i].url%}"></a></li>
 			{%/forlist%}
 		</ul>
 		{%/get%}
-	</div>
-	<div class="hd"><ul></ul></div>
-</div>
-<script type="text/javascript">
-	jQuery(".espcms_slide").slide({titCell: ".hd ul", mainCell: ".bd ul", effect: "fold", autoPlay: true, autoPage: true, trigger: "mouseover",
-		startFun: function(i) {
-			var curLi = jQuery(".espcms_slide .bd li").eq(i);
-			if (!!curLi.attr("_src")) {
 
-				curLi.css("background-image", curLi.attr("_src")).removeAttr("_src");
-			}
+    </div>
+</div>
+<!-- 广告End -->
+<!-- 数据标题 -->
+<div class="data">
+	<div class="warp" id="marqueeTopParent"></div>
+</div>
+<!-- 数据标题End -->
+<!-- 内容区域 -->
+<div class="warp clear">
+	<div class="content clear">
+    	<div class="content_left">
+        	<div class="trade">
+                <div class="title_top"><img src="{%$rootpath%}images/dn.jpg">交易Trade</div>
+                <div class="trade_box">
+      
+                     
+<link href="http://spotplatform.sky9fx.com/appProxy/fonts.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="http://spotplatform.sky9fx.com/SpotOptionPlugin.js"></script>
+<script type="text/javascript">
+	var urlParams;
+	var platDir = 'LTR';
+	(window.onpopstate = function () {
+		var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			query  = window.location.search.substring(1);
+	
+		urlParams = {};
+		while (match = search.exec(query))
+		   urlParams[decode(match[1])] = decode(match[2]);
+	})();
+	
+	
+	if (typeof(urlParams.lang) == "undefined")
+		platformLang= "{%admin_LNG%}";
+	else{
+		platformLang = urlParams.lang;
+		if(urlParams.lang == "ar" || urlParams.lang == "he")
+			 platDir = 'RTL';
+	}
+	
+	SO.load({
+		lang : platformLang,
+		 dir: platDir,
+		cookieOptions : {
+			domain : '.vonwey.com'
+		},
+		packages : {
+			RegularPlatform : {
+				settings : {
+					selector : '#so_container'
+				}
+			},
+			Clock : {},
+			Balance : {}
 		}
 	});
 </script>
-<div class="espcms_page pt15">
-	<div class="espcms_table left">
-		<div class="espcms_table_title">
-			<p class="fw f14 f9d56">COMPANY NEWS</p>
-			<p class="more"><a class="morn" href="{%find:type class=53 out=link%}"><img src="{%$rootpath%}images/more_t.jpg" alt="More"/></a></p>
-		</div>
-		<div class="espcms_table_pic">
-			{%get name=list class=mid:2,tid:53,max:1,dlid:6%}
-			{%forlist from=$array key=i%}
-			<div class="newspic"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}"><img src="{%$array[i].pic|zoom(110,83)%}" alt="{%$array[i].title%}"/></a></div>
-			<div class="newstitle"><a target="_blank" title="{%$array[i].title%}" class="f9d56 strong" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(22)%}</a></div>
-			<div class="newssummit f8f">{%$array[i].summary%}</div>
-			{%/forlist%}
-			{%/get%}
-
-		</div>
-		<ul class="espcms_table_list unstyled">
-			{%get name=list class=mid:2,tid:53,max:5,dlid:5%}
-			{%forlist from=$array key=i%}
-			<li><a title="{%$array[i].title%}" target="_blank" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(22)%}</a> <p class="time">{%$array[i].addtime|timeformat(2)%}</p></li>
-			{%/forlist%}
-			{%/get%}
-		</ul>
-	</div>
+<div id="so_container"></div>
 
 
-	<div class="espcms_table left ml15">
-		<div class="espcms_table_title">
-			<p class="fw f14 f9d56">NEWS</p>
-			<p class="more"><a class="morn" href="{%find:type class=54 out=link%}"><img src="{%$rootpath%}images/more_t.jpg" alt="More"/></a></p>
-		</div>
-		<div class="espcms_table_pic">
-			{%get name=list class=mid:2,tid:54,max:1,dlid:6%}
-			{%forlist from=$array key=i%}
-			<div class="newspic"><a target="_blank" title="{%$array[i].title%}" href="{%$array[i].link%}"><img src="{%$array[i].pic|zoom(110,83)%}" alt="{%$array[i].title%}"/></a></div>
-			<div class="newstitle"><a target="_blank" title="{%$array[i].title%}" class="f9d56 strong" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(22)%}</a></div>
-			<div class="newssummit f8f">{%$array[i].summary%}</div>
-			{%/forlist%}
-			{%/get%}
+                </div>
+                <div class="platform">
+                	<a href="{%$rootdir%}index.php?ac=member&amp;at=reg" class="platform_left"><img src="{%$rootpath%}images/ab_left.jpg"></a>
+                    <a href="{%$rootdir%}index.php?ac=member&amp;at=reg" class="platform_right"><img src="{%$rootpath%}images/ab_right.jpg"></a>
+                </div>
+            </div>
+        </div>
+        <div class="content_right">
+        	<!-- 记录 -->
+        	<div class="record">
+                <div class="title_top"><img src="{%$rootpath%}images/dn.jpg">交易记录</div>
+                <dl>
+                	<dt><img src="{%$rootpath%}images/xq.jpg"></dt>
+                    <dd>
+                    	<ul>
+                        	<li>
+                            	<div class="name"><img src="{%$rootpath%}images/icon_07.png">magic <span>刚刚获得￥456</span></div>
+                                <em></em>
+                                <i>2分钟之前</i>
+                            </li>
+                        	<li>
+                            	<div class="name"><img src="{%$rootpath%}images/iocn_06.png">magic <span>刚刚获得￥456</span></div>
+                                <em></em>
+                                <i>2分钟之前</i>
+                            </li>
+                        	<li>
+                            	<div class="name"><img src="{%$rootpath%}images/icon_07.png">magic <span>刚刚获得￥456</span></div>
+                                <em></em>
+                                <i>2分钟之前</i>
+                            </li>
+                        	<li>
+                            	<div class="name"><img src="{%$rootpath%}images/iocn_06.png">magic <span>刚刚获得￥456</span></div>
+                                <em></em>
+                                <i>2分钟之前</i>
+                            </li>
+                        	<li>
+                            	<div class="name"><img src="{%$rootpath%}images/iocn_06.png">magic <span>刚刚获得￥456</span></div>
+                                <em></em>
+                                <i>2分钟之前</i>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <!-- 视频 -->
+            <div class="video mt30">
+                <div class="title_top"><img src="{%$rootpath%}images/video.jpg">视频</div>
+                <div class="video_box">
+                	{%get name=bann class=atid:8,adtype:1,max:1%}
+                    {%forlist from=$array key=i%}
+                    <a title="{%$array[i].title%}" target="_blank" href="{%$array[i].url%}"><img alt="{%$array[i].title%}" border="0" src="{%$rootdir%}{%$array[i].filename%}"></a>
+                    {%/forlist%}
+                    {%/get%}
+                </div>
+                <div class="mt30"><img src="{%$rootpath%}images/tp_02.jpg"></div>
+                <div class="mt30"><img src="{%$rootpath%}images/tp_03.jpg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 广告 -->
+<div class="warp choice">
+	<dl>
+    	<dt>为什么选择我们？</dt>
+        <dd>我们致力提供最优质的24小时保证金外汇、贵金属在线交易服务。已在超过160个国家开展金融衍生品交易业务。通过一个易信账户投资者可以交易各类金融产品，可供选择的交易平台包括网页平台、桌面平台、手机平台以及MT4平台。SKY始终坚持为交易者提供人性化交易平台、保证止损、无隐藏费用、优势固定点差、执行迅速、无滑点以及先进的图表工具。易信的客户服务经理根据每位客户的程度提供免费培训，同时易信的交易室还提供即时市场信息并为VIP贵宾客户提供独家工具，以帮助交易者在交易中更上一层楼。</dd>
+    </dl>
+</div>
+<!-- 文章 -->
+<div class="warp clear">
+	<div class="content clear">
+    	<div class="content_left">
+        	<div class="trade">
+                <div class="title_top"><img src="{%$rootpath%}images/rl.jpg">财经日历<!--<a href="#">更多>>--></a></div>
+                <div class="calendar">
+               		 <iframe width="790" height="230" scrolling="no" frameborder="0" src="http://www2.m-
+finance.net:9090/lfc/website/{%admin_LNG%}/iframe/econdata_home.jsp?data=1&amp;lang=big5&amp;parentpath=http%3A%2F%2Fwww.lungfu-
+capital.com%2Fjinrongguanli%2Ftc%2F" id="iframeContent002"></iframe>
+                </div>
+            </div>
+        	<div class="trade mt30">
+                <div class="title_top"><img src="{%$rootpath%}images/cj.jpg">财经新闻<!--<a href="#">更多>>--></a></div>
+                <div class="dinance">
+                    <iframe width="790" height="300" scrolling="no" frameborder="0" src="http://www2.m-
+finance.net:9090/lfc/website/{%admin_LNG%}/iframe/day_plan_home.jsp?parentpath=http%3A%2F%2Fwww.lungfu-capital.com%2Fjinrongguanli
+%2Ftc%2F" id="iframeContent001"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="content_right">
+        	<!-- 交易 -->
+        	<div class="record">
+                <div class="title_top"><img src="{%$rootpath%}images/dn.jpg">移动版交易平台</div>
+                <div class="code"><img src="{%$rootpath%}images/wz.jpg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 广告 -->
+<div class="warp certificate">
+	<div class="certificate_left clear">
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    </div>
+	<div class="certificate_right clear">
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    	<dl>
+        	<dt><img src="{%$rootpath%}images/zs.jpg"/></dt>
+            <dd>香港金外汇贸易 场证书 拷贝</dd>
+        </dl>
+    </div>
+</div>
 
-		</div>
-		<ul class="espcms_table_list unstyled">
-			{%get name=list class=mid:2,tid:54,max:5,dlid:5%}
-			{%forlist from=$array key=i%}
-			<li><a title="{%$array[i].title%}" target="_blank" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(22)%}</a> <p class="time">{%$array[i].addtime|timeformat(2)%}</p></li>
-			{%/forlist%}
-			{%/get%}
-		</ul>
-	</div>
-
-	<div class="espcms_Rtalbe left ml15">
-		<div class="espcms_Rtalbe_title">
-			<p class="fw f14 f9d56">ABOUT US</p>
-			<p class="more"><a class="morn" href="{%find:type class=50 out=link%}"><img src="{%$rootpath%}images/more_t.jpg" alt="More"/></a></p>
-		</div>
-		{%get name=bread class=tid:50%}
-		<img src="{%$rootpath%}images/bann/cpic.jpg" alt="{%$read.title%}"/>
-		<div class="espcms_Rtalbe_summmit f8f">{%$read.summary|cutstr(110,'…')%}</div>
+<!-- 内容区域End -->
+<!-- 合作机构 -->
+<div class="warp">
+    <div class="title_top mt30"><img src="{%$rootpath%}images/jg.jpg">合作机构</div>
+    <div class="mechanism">
+        {%get name=bann class=atid:4,adtype:1,max:4%}
+		{%forlist from=$array key=i%}
+		<a title="{%$array[i].title%}" target="_blank" href="{%$array[i].url%}"><img alt="{%$array[i].title%}" border="0" src="{%$rootdir%}{%$array[i].filename%}" width="273" height="105"></a>
+		{%/forlist%}
 		{%/get%}
-	</div>
+    </div>
 </div>
-<div class="espcms_page pt15">
-	<div class="espcms_piclist_table left">
-		<div class="espcms_piclist_table_title">
-			<div class="title fw f14 f9d56 pl10">PRODUCTS</div>
-			<div class="pic_pagebotton hd">
-				<a class="next"></a>
-				<a class="prev"></a>
-				<ul>
-					<li></li>
-					<li></li>
-				</ul>
-			</div>
-		</div>
-		<div class="espcms_piclist_slide">
-			<ul class="unstyled">
-				{%get name=list class=mid:3,max:10,sort:1%}
-				{%forlist from=$array key=i%}
-				<li>
-					<a title="{%$array[i].title%}" href="{%$array[i].link%}"><img src="{%$array[i].pic|zoom(131,131)%}" alt="{%$array[i].title%}"></a>
-					<p><a title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].ctitle|cutstr(10,'')%}</a></p>
-				</li>
-				{%/forlist%}
-				{%/get%}
-			</ul>
-		</div>
-	</div>
-	<script type="text/javascript">jQuery(".espcms_piclist_table").slide({mainCell: ".espcms_piclist_slide ul", effect: "left", interTime: 4000, delayTime: 800, vis: 5, scroll: 5, autoPlay: true, pnLoop: false, trigger: "click", easing: "easeOutCubic"});</script>
-	<div class="espcms_Rtalbe left ml10">
-		<ul class="unstyled bann">
-			{%get name=bann class=atid:7,adtype:1,max:2%}
-			{%forlist from=$array key=i%}
-			<li{%if key=>i>1%} class="pt10"{%/if%}><a title="{%$array[i].title%}" target="_blank" href="{%$array[i].url%}"><img alt="{%$array[i].title%}" border="0" src="{%$rootdir%}{%$array[i].filename%}"></a></li>
-			{%/forlist%}
-			{%/get%}
-		</ul>
-	</div>
-</div>
-<div class="espcms_page pt15"></div>
+<!-- 合作机构End -->
+
 {%link file="en/public/footer.html"%}
-</body>
-</html>

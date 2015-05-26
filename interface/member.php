@@ -8,6 +8,21 @@ class mainpage extends connector {
 		$this->softbase(false);
 		$this->mlink = $this->memberlink(array(), admin_LNG);
 	}
+	function in_myAccount() {
+		parent::start_pagetemplate();
+		$lng = (admin_LNG == 'big5') ? $this->CON['is_lancode'] : admin_LNG;
+
+		$this->lng['sitename'] = $this->lng['membertitle'] . '-' . $this->lng['sitename'];
+		$this->pagetemplate->assign('lngpack', $this->lng);
+		$templatesDIR = $this->get_templatesdir('member');
+		$templatefilename = $lng . '/' . $templatesDIR . '/member_center';
+		$this->pagetemplate->assign('seccodelink', $this->get_link('seccode'));
+		$this->pagetemplate->assign('mlink', $this->mlink);
+		$this->pagetemplate->assign('mem_isseccode', $this->CON['mem_isseccode']);
+		$this->pagetemplate->assign('path', 'member');
+		unset($mlink, $LANPACK, $this->lng);
+		$this->pagetemplate->display($templatefilename, 'index', false, null, admin_LNG);
+	}
 	function in_login() {
 		parent::start_pagetemplate();
 		$lng = (admin_LNG == 'big5') ? $this->CON['is_lancode'] : admin_LNG;
@@ -162,14 +177,14 @@ class mainpage extends connector {
 		$this->lng['sitename'] = $this->lng['member_regbotton'] . '-' . $this->lng['sitename'];
 		$this->pagetemplate->assign('lngpack', $this->lng);
 		$templatesDIR = $this->get_templatesdir('member');
-		$templatefilename = $lng . '/' . $templatesDIR . '/member_skin';
+		$templatefilename = $lng . '/' . $templatesDIR . '/member_reg';
 		$this->pagetemplate->assign('seccodelink', $this->get_link('seccode'));
 		$this->pagetemplate->assign('mlink', $this->mlink);
 		$this->pagetemplate->assign('mem_regisseccode', $this->CON['mem_regisseccode']);
 		$this->pagetemplate->assign('skincotent', 'member_reg');
 		$this->pagetemplate->assign('path', 'member');
 		unset($mlink, $LANPACK, $this->lng);
-		$this->pagetemplate->display($templatefilename, 'member_skin', false, null, admin_LNG);
+		$this->pagetemplate->display($templatefilename, 'member_reg', false, null, admin_LNG);
 	}
 	function in_regsave() {
 		$linkURL = $_SERVER['HTTP_REFERER'];
