@@ -1,9 +1,6 @@
 [%#%]订单列表[%#%]
 [%if $menutype == 'orderlist'%]
 <ul class="listbottonul" id="listbottonul">
-	[%if @this->powercheck('order','orderadd')==true %]
-	<li class="menumain"><a id="addinfo" class="addinfo" onclick="javascript:parent.onbotton('[%$ST.botton_add_orderadd|addslashes('hc')%]','index.php?archive=ordermain&action=orderadd&tab=true&freshid='+Math.random()+'&iframename='+self.frameElement.getAttribute('name'),false,'addinfo',self.frameElement.getAttribute('name'));"  href="#body" title="[%$ST.botton_add_orderadd%]" hidefocus="true">[%$ST.botton_add_orderadd%]</a></li>
-	[%/if%]
 	<li class="menumain"><a id="selectall" class="selectall" href="javascript:select_change(true,'selectform','selectall','check_all')" title="[%$ST.selAll_botton%]" hidefocus="true">[%$ST.selAll_botton%]</a></li>
 	<li class="menumain"><a id="bolt" href="#body" hidefocus="true" hidefocus="true">[%$ST.bolt_botton%]</a>
 		<ul class="menulist">

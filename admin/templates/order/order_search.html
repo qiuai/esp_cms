@@ -68,11 +68,10 @@
 						<td width="80%" class="trtitle02">
 							<select name="keyname" id="keyname">
 								<option selected value="ordersn">[%$ST.ordermain_search_keyname1%]</option>
-								<option value="consignee">[%$ST.ordermain_search_keyname2%]</option>
+								<option value="consignee">按用户名</option>
 								<option value="tel">[%$ST.ordermain_search_keyname3%]</option>
 								<option value="mobile">[%$ST.ordermain_search_keyname4%]</option>
 								<option value="email">[%$ST.ordermain_search_keyname5%]</option>
-								<option value="shippingsn">[%$ST.ordermain_search_keyname6%]</option>
 								<option value="paysn">[%$ST.ordermain_search_keyname7%]</option>
 							</select>
 						</td>
@@ -89,26 +88,12 @@
 						</td>
 					</tr>
 					<tr class="trstyle2">
-						<td width="20%" class="trtitle01">[%$ST.ordermain_add_shiptype%]</td>
-						<td width="80%" class="trtitle02">
-							<select name="osid" id="osid">
-								<option selected value="0">[%$ST.all_botton%]</option>
-								[%forlist from=$shipplug key=i%]
-								<option value="[%$shipplug[i].osid%]">[%$shipplug[i].title%]</option>
-								[%/forlist%]
-							</select>
-						</td>
-					</tr>
-					<tr class="trstyle2">
 						<td width="20%" class="trtitle01">[%$ST.ordermain_text_ordertype%]</td>
 						<td width="80%" class="trtitle02">
 							<select size="1" name="ordertype" id="ordertype">
 								<option selected value="0">[%$ST.all_botton%]</option>
 								<option value="1">[%$ST.ordermain_text_ordertype1%]</option>
 								<option value="2">[%$ST.ordermain_text_ordertype2%]</option>
-								<option value="3">[%$ST.ordermain_text_ordertype3%]</option>
-								<option value="4">[%$ST.ordermain_text_ordertype4%]</option>
-								<option value="5">[%$ST.ordermain_text_ordertype5%]</option>
 								<option value="6">[%$ST.ordermain_text_ordertype6%]</option>
 							</select>
 						</td>

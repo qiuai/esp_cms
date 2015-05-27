@@ -9,40 +9,75 @@ class mainpage extends connector {
 		$this->mlink = $this->memberlink(array(), admin_LNG);
 	}
 	function in_pay() {
-		die('x');
-		$did = intval($this->fun->accept('did', 'G', true, true));
-		if (empty($did)) trigger_error("Parameter error!", E_USER_ERROR);
-		$db_table = db_prefix . 'document';
-		$db_sql = "SELECT did,tsn,title,oprice,bprice FROM $db_table WHERE isclass=1 AND did=$did AND isorder=1";
-		$readdid = $this->db->fetch_first($db_sql);
-		if ($readdid) {
-			$cartid = $this->fun->eccode($this->fun->accept('ecisp_order_list', 'C'), 'DECODE', db_pscode);
-			$cartid = stripslashes(htmlspecialchars_decode($cartid));
-			$arraykeyname = 'k' . $did;
-			if (empty($cartid) || strlen($cartid) < 7) {
-				$orderlist = array($arraykeyname => array('did' => $did, 'amount' => 1));
-				$orderlist = serialize($orderlist);
-			} else {
-				$orderid = unserialize($cartid);
-				if (is_array($orderid) && array_key_exists($arraykeyname, $orderid)) {
-					$amount = $orderid[$arraykeyname]['amount'] + 1;
-					unset($orderid[$arraykeyname]);
-					$nowcart = array($arraykeyname => array('did' => $did, 'amount' => $amount));
-					$newcart = array_merge($orderid, $nowcart);
-					$orderlist = serialize($newcart);
-				} elseif (is_array($orderid)) {
-					$nowcart = array($arraykeyname => array('did' => $did, 'amount' => 1));
-					$newcart = array_merge_recursive($nowcart, $orderid);
-					$orderlist = serialize($newcart);
-				} else {
-					$nowcart = array($arraykeyname => array('did' => $did, 'amount' => 1));
-					$orderlist = serialize($newcart);
-				}
-			}
-			$this->fun->setcookie('ecisp_order_list', $this->fun->eccode($orderlist, 'ENCODE', db_pscode), 7200);
-			$buylink = $this->get_link('order', array(), admin_LNG);
-			header('location:' . $buylink);
-		} else {
+		parent::start_pagetemplate();
+		$linkURL = $_SERVER['HTTP_REFERER'];$lng = (admin_LNG == 'big5') ? $this->CON['is_lancode'] : admin_LNG;
+		$cartid = $this->fun->eccode($this->fun->accept('ecisp_order_list', 'C'), 'DECODE', db_pscode);
+		$cartid = stripslashes(htmlspecialchars_decode($cartid));
+		$uncartid = !empty($cartid) ? unserialize($cartid) : 0;
+		$ordersncode = $this->fun->accept('ecisp_order_sncode', 'C');
+		$userid = intval($this->fun->accept('uid', 'P'));
+		$userid = empty($userid) ? 0 : $userid;
+		$consignee = trim($this->fun->accept('alias', 'P', true, true));
+		$consignee = $this->fun->substr($consignee, 12);
+		$email = $this->fun->accept('Email', 'P', true, true);
+		$firstname = $this->fun->accept('FirstName', 'P', true, true);
+		$lastname = $this->fun->accept('LastName', 'P', true, true);
+		$consignee = $firstname .' '.$lastname;
+		$country = intval($this->fun->accept('cityone', 'P'));
+		$country = empty($country) ? 0 : $country;
+		$province = intval($this->fun->accept('citytwo', 'P'));
+		$province = empty($province) ? 0 : $province;
+		$city = intval($this->fun->accept('citythree', 'P'));
+		$city = empty($city) ? 0 : $city;
+		$district = intval($this->fun->accept('district', 'P'));
+		$district = empty($district) ? 0 : $district;
+		$address = trim($this->fun->accept('address', 'P', true, true));
+		$address = $this->fun->substr($address, 120);
+		$zipcode = trim($this->fun->accept('zipcode', 'P', true, true));
+		$zipcode = $this->fun->substr($zipcode, 10);
+		$tel = trim($this->fun->accept('tel', 'P', true, true));
+		$tel = $this->fun->substr($tel, 20);
+		$mobile = trim($this->fun->accept('mobile', 'P', true, true));
+		$mobile = $this->fun->substr($mobile, 15);
+		$sendtime = intval($this->fun->accept('sendtime', 'R'));
+		$content = trim($this->fun->accept('content', 'P', true, true));
+		$content = $this->fun->substr($content, 500);
+		$invpayee = trim($this->fun->accept('invpayee', 'P', true, true));
+		$invpayee = $this->fun->substr($invpayee, 60);
+		$invcontent = trim($this->fun->accept('invcontent', 'P', true, true));
+		$invcontent = $this->fun->substr($invcontent, 60);
+		$opid = intval($this->fun->accept('opid', 'P'));
+		$opid = empty($opid) ? 0 : $opid;
+		$osid = intval($this->fun->accept('osid', 'P'));
+		$osid = empty($osid) ? 0 : $osid;
+		$productmoney = floatval($this->fun->accept('productmoney', 'P'));
+		$discount = floatval($this->CON['moneys']);
+		$invpayee = floatval($this->CON['payis']);
+		
+		$payprice = 0;
+		$shipprice = 0;
+		$payread = !empty($opid) ? $this->get_payplug_view($opid) : 0;
+		$shipprice = !empty($osid) ? $this->get_shipplug_view($osid, 'price') : 0;
+		$shipprice = floatval($shipprice);
+		$payprice = 0;
+		$orderamount = $productmoney * (100 - $invpayee) * 0.01 / $discount;
+		$order_snfont = $this->CON['order_snfont'];
+		$ordersn = $order_snfont . date('YmdHis') . rand(100, 9999);
+		$db_table = db_prefix . 'order';
+		$db_table2 = db_prefix . 'order_info';
+		$addtime = time();
+		$db_field = 'ordersn,userid,ordertype,osid,opid,shippingsn,paysn,consignee,country,province,city,district,address,
+			zipcode,tel,mobile,email,sendtime,invpayee,invcontent,content,treatnote,paytime,shippingtime,productmoney,shippingmoney,
+			paymoney,orderamount,discount,integral,addtime';
+		$db_values = "'$ordersn',$userid,1,$osid,$opid,'','','$consignee',$country,$province,$city,$district,'$address',
+			'$zipcode','$tel','$mobile','$email','$sendtime','$invpayee','$invcontent','$content','',0,0,$productmoney,$shipprice,
+			$payprice,$orderamount,$discount,0,$addtime";
+		$this->db->query('INSERT INTO ' . $db_table . ' (' . $db_field . ') VALUES (' . $db_values . ')');
+		$insert_id = $this->db->insert_id();
+		if($insert_id){
+			$linkURL = $_SERVER['HTTP_REFERER'];
+			$this->callmessage("订单创建成功", $linkURL, $this->lng['gobackbotton']);
+		}else{
 			$linkURL = $_SERVER['HTTP_REFERER'];
 			$this->callmessage($this->lng['order_buy_err'], $linkURL, $this->lng['gobackbotton']);
 		}

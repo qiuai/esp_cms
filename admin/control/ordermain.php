@@ -153,7 +153,7 @@ class important extends connector {
 				$orderonline = $payobj->get_code($read, $paylist, $return_url, $return_url);
 			}
 			$productmoney = $read['productmoney'];
-			$dis = 100 - ($read['discount'] / $productmoney) * 100;
+			$dis = $read['discount'];
 			$this->ectemplates->assign('payList', $payList);
 			$this->ectemplates->assign('shipList', $shipList);
 			$this->ectemplates->assign('productmoney', $productmoney);

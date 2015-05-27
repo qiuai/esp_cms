@@ -117,6 +117,7 @@ textarea{resize:none; overflow:auto; outline:none;}
 .footer .footer_left,.footer .footer_left dl{float:left}
 .footer .footer_left dl{margin-right:30px;margin-top:10px;_width:110px;}
 .footer .footer_left dl dt{line-height:30px;font-size:14px;color:#FFF}
+.footer .footer_left dl dt a{ color:#FFF;}
 .footer .footer_left dl dt.icon_01{background:url(../images/icon_03.jpg) no-repeat;height:29px;padding-left:35px;}
 .footer .footer_left dl dt.icon_02{background:url(../images/icon_01.jpg) no-repeat;height:29px;padding-left:35px;}
 .footer .footer_left dl dt.icon_03{background:url(../images/icon_02.jpg) no-repeat;height:29px;padding-left:35px;}
@@ -141,14 +142,14 @@ textarea{resize:none; overflow:auto; outline:none;}
 .data{width:100%;height:45px;background:#ffffff;line-height:45px;border-bottom:1px solid #dde3e7}
 .content{margin-top:30px;}
 .content .content_left{width:790px;float:left}
-.content .content_left .trade .trade_box{background:#FFF;height:783px}
+.content .content_left .trade .trade_box{background:#FFF;height:783px; margin:20px 0px;}
 .title_top{background:#3a1e51;width:100%;height:50px;line-height:50px;color:#FFF;font-size:18px;position:relative}
 .title_top a{position:absolute;right:10px;top:0px;color:#FFF;font-size:14px}
 .title_top img{ vertical-align:middle;margin:0px 10px;}
-.platform{background:url(../images/sd.jpg) no-repeat;width:790px;height:534px;position:relative;margin-top:30px;}
+.platform{background:url(../images/sd.jpg) no-repeat;width:790px;height:534px;position:relative;margin-top:50px;}
 .platform .platform_left{position:absolute;bottom:70px;left:140px;}
 .platform .platform_right{position:absolute;bottom:70px;right:140px;}
-.record dl{height:533px;width:378px}
+.record dl{height:583px;width:378px}
 .record dl dt{height:172px;width:378px; overflow:hidden}
 .record dl dd{height:361px;background:#FFF;width:378px}
 .record dl dd ul li{border-bottom:1px solid #dedede;height:71px;width:378px;position:relative}
@@ -157,6 +158,7 @@ textarea{resize:none; overflow:auto; outline:none;}
 .record dl dd ul li .name{position:absolute;left:10px;top:10px;font-size:16px}
 .record dl dd ul li .name img{margin:0px 10px;}
 .record dl dd ul li .name span{color:#5fa214;}
+.record dl dd ul li .name span.down{color:#eb5c56;}
 .record dl dd ul li i{position:absolute;left:20px;bottom:10px;color:#999999;font-size:14px;}
 .record dl dd ul li:hover{background:#dde3e7; cursor:pointer}
 .record dl dd ul li:hover .name span{color:#eb5c56}
