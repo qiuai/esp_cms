@@ -1,10 +1,10 @@
 <?php
-// uptime:2015-05-22 01:36:19
+// uptime:2015-05-29 21:18:26
 // ECISP.CN 
 $CONFIG=Array(
      'icpbeian'=>'备案号：粤ICP备14001856-1号',
      'is_close'=>0,
-     'admine_mail'=>'syk@qq.com',
+     'admine_mail'=>'sky@qq.com',
      'is_log'=>1,
      'cli_time'=>'8',
      'is_html'=>0,
@@ -20,7 +20,7 @@ $CONFIG=Array(
      'home_lng'=>'cn',
      'is_rewrite'=>0,
      'is_alonelng'=>0,
-     'sitename'=>'SYK',
+     'sitename'=>'SKY',
      'is_getcache'=>0,
      'mem_isseccode'=>1,
      'mem_isemail'=>0,
@@ -90,8 +90,8 @@ $CONFIG=Array(
      'bbs_ismail'=>1,
      'is_email'=>0,
      'smtp_server'=>'',
-     'smtp_username'=>'',
-     'smtp_password'=>'',
+     'smtp_username'=>'admin',
+     'smtp_password'=>'vonwey',
      'input_isdes'=>1,
      'input_isdellink'=>0,
      'input_isdescription'=>250,
@@ -114,6 +114,7 @@ $CONFIG=Array(
      'is_moblie'=>0,
      'moblie_number'=>'',
      'tip_searchtime'=>'10',
+     'moneys'=>'6',
      'is_wap'=>1,
      'wap_telstr'=>'07162209455',
      'wap_ismenu_member'=>1,
@@ -128,7 +129,7 @@ ESPCMS 保留所有权利',
      'call_style'=>'1',
      'call_type'=>'1',
      'call_position'=>'2',
-     'domain'=>'http://test.vonwey.com:8080/syk/',
+     'domain'=>'http://sky.vonwey.com:8080/',
      'max_page'=>5,
      'max_list'=>20,
      'upfile_dir'=>'upfile/',
@@ -152,6 +153,6 @@ ESPCMS 保留所有权利',
      'wap_templates'=>'touch',
      'isdbo'=>'0',
      'dbosn'=>'EDF2614',
-     'dietime'=>'1432229779',
+     'dietime'=>'1432905506',
 )
 ?>

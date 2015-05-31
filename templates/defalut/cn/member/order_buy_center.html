@@ -12,11 +12,12 @@
 <div class="warp clear">
 	<div class="userBox" id="paySubmit">
     	 <form action="{%$rootdir%}index.php?ac=payment&amp;at=pay" method="POST" name="frm1">	
-    	 <input type="hidden" name="uid" id="uid" value="733">
-    	 <input type="hidden" name="Billno" id="Billno" value="20150526122107459629">
-    	 <input type="hidden" name="FirstName" id="FirstName" value="vonwey">
-    	 <input type="hidden" name="LastName" id="LastName" value="wang">
-    	 <input type="hidden" name="Email" id="Email" value="vonwey@163.com">
+    	 <input type="hidden" name="uid" id="ouid" value="733">
+    	 <input type="hidden" name="Billno" id="oBillno" value="20150526122107459629">
+    	 <input type="hidden" name="FirstName" id="oFirstName" value="vonwey">
+    	 <input type="hidden" name="LastName" id="oLastName" value="wang">
+    	 <input type="hidden" name="Email" id="oEmail" value="vonwey@163.com">
+         <input type="hidden" name="opid" value="2">
 		<div class="userFrom" style="width:870px;">
 	        <ul>
 	        	<li style="line-height:22px;border:1px solid #F4AF48;background-color:#FFF5E6;margin:0 100px 20px;padding:20px 30px;">
@@ -31,41 +32,12 @@
 				<li style="margin-top:20px;"><label style="width:170px;">人民币</label><input type="text" readonly="" id="money" name="productmoney" class="regInput" value=""></li>
 	            <li class="intervalLine mt20"></li>
 	            <li><label class="fB">选择银行</label></li>
-	            <li>
-	            <dl class="bankList">
-	            	<dd><input type="radio" checked="true" name="Bankco" value="00021"><img src="{%$rootpath%}images/bank/bank_22.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00083"><img src="{%$rootpath%}images/bank/bank_26.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00032"><img src="{%$rootpath%}images/bank/bank_01.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00004"><img src="{%$rootpath%}images/bank/bank_02.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00013"><img src="{%$rootpath%}images/bank/bank_05.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00015"><img src="{%$rootpath%}images/bank/bank_06.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00095"><img src="{%$rootpath%}images/bank/bank_07.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00016"><img src="{%$rootpath%}images/bank/bank_09.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00017"><img src="{%$rootpath%}images/bank/bank_10.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00096"><img src="{%$rootpath%}images/bank/bank_12.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00087"><img src="{%$rootpath%}images/bank/bank_13.jpg"></dd>
-                	<dd><input type="radio" name="Bankco" value="00051"><img src="{%$rootpath%}images/bank/bank_14.jpg"></dd>
-                	<dd><input type="radio" name="Bankco" value="00081"><img src="{%$rootpath%}images/bank/bank_17.jpg"></dd>
-                	<dd><input type="radio" name="Bankco" value="00005"><img src="{%$rootpath%}images/bank/bank_18.jpg"></dd>
-                	<dd><input type="radio" name="Bankco" value="00052"><img src="{%$rootpath%}images/bank/bank_19.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00135"><img src="{%$rootpath%}images/bank/bank_27.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00085"><img src="{%$rootpath%}images/bank/bank_29.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00057"><img src="{%$rootpath%}images/bank/bank_30.jpg"></dd>
-	                <dd><input type="radio" name="Bankco" value="00212"><img src="{%$rootpath%}images/bank/bank_31.jpg"></dd>
-	                <dd class="fB" onclick="this.style.display='none';document.getElementById('moreBank').style.display='block'" style="cursor: pointer;">选择其他银行</dd>
-                	<div id="moreBank" style="display:none;">
-	                	<dd><input type="radio" name="Bankco" value="00054"><img src="{%$rootpath%}images/bank/bank_34.jpg"></dd>
-		                <dd><input type="radio" name="Bankco" value="00194"><img src="{%$rootpath%}images/bank/bank_35.jpg"></dd>
-		                <dd><input type="radio" name="Bankco" value="00041"><img src="{%$rootpath%}images/bank/bank_37.jpg"></dd>
-		                <dd><input type="radio" name="Bankco" value="00023"><img src="{%$rootpath%}images/bank/bank_38.jpg"></dd>
-	            	</div>
-	            </dl>
-	        	
-	        	</li><li id="confirmSub" style="margin-left: 100px;"><label></label>
+                <li>{%$display_code%}</li>
+	            <li id="confirmSub" style="display: none; margin-left: 100px;"><label></label>
 	        		<input class="regSubmitBtn" type="submit" value="确认存款">
 	        	</li>
 	        	
-	        	<li id="loginInfo" style="display: none; margin-left:100px;">
+	        	<li id="loginInfo" style=" margin-left:100px;">
 	        		<label></label><input class="regSubmitBtn" type="button" value="您还没登陆，不能入金">
 	        	</li>
 	        </ul>
@@ -79,8 +51,7 @@
 $(function(){
 	 $('#moneyUSD').keyup(function () {
 		 var money = $('#moneyUSD').val();
-		$('#money').val(Math.ceil(money*parseInt({%$moneys%})))
-
+		 $('#money').val(Math.ceil(money*parseInt('{%$moneys%}')));
 	});
 })
 </script>

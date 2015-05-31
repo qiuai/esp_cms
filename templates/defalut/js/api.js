@@ -20,6 +20,16 @@ var Api = {
 			 var id = SO.model.Customer.currentCustomer.id;
 			 Api.customer = SO.model.Customer.currentCustomer;
 			 Api.buildPersonalHeader();
+			 
+			 if ($('#confirmSub')) {
+				$('#loginInfo').hide();
+				$('#confirmSub').show();
+				$('#ouid').val(id);
+				$('#oFirstName').val(SO.model.Customer.currentCustomer.FirstName);
+				$('#oLastName').val(SO.model.Customer.currentCustomer.LastName);
+				$('#oEmail').val(SO.model.Customer.currentCustomer.Email);
+			 }
+	
 		} else {
 			 $('#login').show();
 			 $('#ucenter').hide();

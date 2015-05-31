@@ -75,6 +75,21 @@ class mainpage extends connector {
 		$this->db->query('INSERT INTO ' . $db_table . ' (' . $db_field . ') VALUES (' . $db_values . ')');
 		$insert_id = $this->db->insert_id();
 		if($insert_id){
+				
+			//if (!empty($opid)) { // 在线支付
+				$rsOrder = array('ordersn' => $ordersn, 'orderamount' => $orderamount, 'oid' => $insert_id);
+				$paylist = $this->fun->formatarray($payread['pluglist']);
+				$plugcode = $payread['paycode'];
+				if (!empty($plugcode)) {
+					include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
+					$payobj = new $plugcode();
+					$codesn = $this->fun->eccode($plugcode . $ordersn . $insert_id, 'ENCODE', db_pscode, FALSE);
+					$respondArray = array('code' => $plugcode, 'ordersn' => $ordersn, 'oid' => $insert_id, 'codesn' => $codesn);
+					$return_url = $this->get_link('paybackurl', $respondArray, admin_LNG);
+					$orderonline = $payobj->get_code($rsOrder, $paylist, $return_url, $return_url);
+				}
+			//}
+		
 			$linkURL = $_SERVER['HTTP_REFERER'];
 			$this->callmessage("订单创建成功", $linkURL, $this->lng['gobackbotton']);
 		}else{
@@ -94,7 +109,17 @@ class mainpage extends connector {
 		$this->pagetemplate->assign('path', 'order');
 		$this->pagetemplate->assign('tokenkey', $this->fun->token());
 		$this->pagetemplate->assign('mem_isaddress', $this->CON['mem_isaddress']);
-		$templatesDIR = $this->get_templatesdir('order');
+		
+		// 支付模版
+		$opid = 2; // 宝付支付
+		$payread = !empty($opid) ? $this->get_payplug_view($opid) : 0;
+		$plugcode = $payread['paycode'];
+		if (!empty($plugcode)) {
+			include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
+			$payobj = new $plugcode();
+			$this->pagetemplate->assign('display_code', $payobj->get_display_code());
+		}
+				
 		$templatesDIR = $this->get_templatesdir('order');
 		$templatefilename = $lng . '/' . $templatesDIR . '/order_buy_center';
 		$this->pagetemplate->assign('out', 'buyedit');

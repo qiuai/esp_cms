@@ -9,14 +9,16 @@
 <meta name="description" content="{%$lngpack.description%}" />
 <!-- 引入CSS -->
 <link rel="stylesheet" type="text/css" href="{%$rootpath%}css/style.css">
+<link href="http://spotplatform.sky9fx.com/appProxy/fonts.css" media="screen" rel="stylesheet" type="text/css"/>
 <!-- 引入JS -->
 <script src="{%$rootpath%}js/jquery.min.js"></script>
 <script src="{%$rootpath%}js/jquery.flexslider-min.js"></script>
+<script src="http://spotplatform.sky9fx.com/SpotOptionPlugin.js"></script>
 <script language="javascript" src="{%$rootpath%}js/api.js"></script>
 <script>
 	$(function(){
 		$('#bankPut').click(function(){
-			window.location.href="{%$rootdir%}index.php?ac=member&at=myAccount";
+			window.location.href="{%$rootdir%}index.php?ac=payment&at=order";
 		});
 		$('#myaccount').click(function(){
 			window.location.href="{%$rootdir%}index.php?ac=member&at=myAccount";
@@ -76,7 +78,15 @@
 	<ul class="warp clear">
         {%get name=menu class=path:$path,current:$current,ishome:1%}
 		{%forlist from=$array key=i%}
-		<li {%if $array[i].path==$path && $array[i].current==$current%}class="hover"{%/if%}><span><a class="menu" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].title%}</a></span></li>
+		<li {%if $array[i].path==$path && $array[i].current==$current && $i>0 %}class="hover"{%/if%}><span><a class="menu" title="{%$array[i].title%}" href="{%$array[i].link%}">{%$array[i].title%}</a></span>
+            {% if count( $array[i].larray ) > 0 %}
+            <ul>
+                {%forlist from=$array[i].larray key=ii%}
+				<li><a href="{%$array[i].larray[ii].link%}" title="{%$array[i].larray[ii].title%}">{%$array[i].larray[ii].title%}</a></li>
+				{%/forlist%}
+            </ul>
+            {%/if%}
+        </li>
 		{%/forlist%}
 		{%/get%}
     </ul>

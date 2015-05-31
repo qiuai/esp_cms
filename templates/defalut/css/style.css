@@ -43,16 +43,24 @@ textarea{resize:none; overflow:auto; outline:none;}
 .bar_top .login ul li em,.bar_top .login ul li a{font-size:14px;width:100px;display:inline-block;text-align:center;margin-left:10px}
 .bar_top .login ul li .checkbox{margin-left:10px;vertical-align:middle}
 /*主导航*/
-.header{width:100%;height:47px;background:#3a1e51}
+.header{width:100%;height:47px;background:#3a1e51; z-index:9999;}
 .header ul li{float:left;line-height:47px;font-size:16px;width:117px;background:url(../images/jt.jpg) no-repeat right; text-align:center;margin-right:15px;display:inline}
 .header ul li a{color:#FFF;}
 .header ul li:first-child {background:none} 
 .header ul li:hover{background:url(../images/hover_hd.jpg) no-repeat;width:117px;}
 .header ul li:hover a{color:#6e1d4e;}
+.header ul li.hover{background:url(../images/hover_hd.jpg) no-repeat;width:117px;}
+.header ul li.hover a{color:#6e1d4e;}
+.header ul li ul{display:none;width:117px;z-index:10;position:absolute;background:#FFF}
+.header ul li ul li{background-image:none}
+.header ul li:hover ul{display:block}
+
+
+
 /*首页banner*/
 .banenr{wduth:100%;height:570px;background:#212129;}
 .banner_box{width:1200px; margin:0 auto;position:relative}
-.banner_box .account{position:absolute;top:35px;right:0px;width:254px;height:500px;opacity:0.8;filter:alpha(opacity=80);zoom:1;background:#000;padding:0px 38px;z-index:99999}
+.banner_box .account{position:absolute;top:35px;right:0px;width:254px;height:500px;opacity:0.8;filter:alpha(opacity=80);zoom:1;background:#000;padding:0px 38px;z-index:999}
 .banner_box .account h6{color:#FFF;position:absolute;z-index:99999;font-size:30px;border-bottom:1px solid #dedede;line-height:60px;margin-top:20px;width:254px; text-align:center}
 
 
