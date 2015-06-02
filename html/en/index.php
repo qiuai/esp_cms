@@ -51,7 +51,7 @@ if (empty($archive) || empty($action)) {
 		exit('Access error!');
 	}
 } else {
-	if (in_array($archive, array('article', 'forum', 'search', 'bbssearch', 'forummain', 'messmain', 'special', 'respond', 'public', 'scriptout', 'enquiry', 'enquirymain', 'form', 'formmain', 'ordermain', 'membermain', 'member', 'forum', 'order'))) {
+	if (in_array($archive, array('article', 'forum', 'search', 'bbssearch', 'forummain', 'messmain', 'special', 'respond', 'public', 'scriptout', 'enquiry', 'enquirymain', 'form', 'formmain', 'ordermain', 'membermain', 'member', 'forum', 'order', 'payment'))) {
 		$action = 'in_' . $action;
 		if (!file_exists(admin_ROOT . "interface/$archive.php")) {
 			exit('Access error!');

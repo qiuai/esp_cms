@@ -201,13 +201,14 @@ class baofoopay extends connector {
 	}
 
 	function get_code($order, $payment, $return_url, $notify_url) {
-		return '宝付支付';
+		$payment_item = $this->db->getRow("select * from ".db_prefix."order where oid=".$order['oid']);
+		return 'http://tgw.bfopay.com/payindex';
 	}
 	
 	function get_display_code(){
 		$payment_item = $this->db->getRow("select * from ".db_prefix."order_pay where paycode='baofoopay'");
 		if($payment_item){
-			$display = file_get_contents(admin_ROOT . 'public/plug/payment/baofoopay.html');
+			$display = file_get_contents(admin_ROOT . 'public/plug/payment/baofoopay_'.admin_LNG.'.html');
 		}
 		return $display;
 	}
