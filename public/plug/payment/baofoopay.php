@@ -194,15 +194,73 @@ class baofoopay extends connector {
 
 	function bfopay() {
 		$this->softbase(false);
+        $this->config['baofoo_account'] = '100000178';
+        $this->config['baofoo_key'] = '10000001';
+        $this->config['baofoo_terminal'] = 'abcdefg';
+        $this->config['baofoo_gateway'] = 'http://tgw.bfopay.com/payindex'; // 测试地址
+        //$this->config['baofoo_gateway'] = 'http://gw.bfopay.com/payindex'; // 正式地址
 	}
 
 	function __construct() {
 		$this->bfopay();
 	}
 
-	function get_code($order, $payment, $return_url, $notify_url) {
-		$payment_item = $this->db->getRow("select * from ".db_prefix."order where oid=".$order['oid']);
-		return 'http://tgw.bfopay.com/payindex';
+	function get_code($oprid) {
+		
+		$payment_info = $this->db->getRow("select * from ".db_prefix."order_payreceipt where oprid=$oprid");
+		
+		$payment_notice = $this->db->getRow("select * from ".db_prefix."order where oid=".$payment_info['oid']);
+		
+		$_TransID = $payment_notice['order_sn'];
+		$_OrderMoney = round($payment_notice['productmoney'],2);
+		$_Username = $payment_notice['username'];
+		
+		$_Merchant_url =  admin_rootDIR.'baofoo_response.php';
+        $_Return_url = admin_rootDIR.'baofoo_notify.php';
+        
+        /* 交易日期 */
+        $_TradeDate = date('YmdHis',$payment_notice['create_time']);
+		$_MerchantID = $this->config['baofoo_account'];
+        $_PayID = $payment_info['bankid'];
+		if(intval($_PayID) == 1000 || intval($_PayID)==0){
+			$_PayID = "";
+		}
+        $_NoticeType = 1;
+        $_Md5Key = $this->config['baofoo_key'];
+        $_TerminalID = $this->config['baofoo_terminal'];
+       
+		$_AdditionalInfo = $oprid;
+		$_Md5_OrderMoney = $_OrderMoney*100;
+		$MARK = "|";
+      	$_Signature=md5($_MerchantID.$MARK.$_PayID.$MARK.$_TradeDate.$MARK.$_TransID.$MARK.$_Md5_OrderMoney.$MARK.$_Merchant_url.$MARK.$_Return_url.$MARK.$_NoticeType.$MARK.$_Md5Key);
+        /*交易参数*/
+        $parameter = array(
+            'MemberID' => $_MerchantID,
+            'TransID' => $_TransID,//流水号
+			'PayID' => $_PayID,//支付方式
+			'TradeDate' => $_TradeDate,//交易时间
+			'OrderMoney' => $_OrderMoney*100,//订单金额
+			'ProductName' => $_TransID,//产品名称
+			'Amount' => 1,//数量
+			'ProductLogo' => '',//产品logo
+			'Username' => $_Username,//支付用户名
+			'AdditionalInfo' => $_AdditionalInfo,//订单附加消息
+			'PageUrl' => $_Merchant_url,//商户通知地址 
+			'ReturnUrl' => $_Return_url,//用户通知地址
+			'NoticeType' => $_NoticeType,//通知方式
+			'Signature'=>$_Signature,
+			'TerminalID'=>$_TerminalID,
+			'InterfaceVersion'=> "4.0",
+			'KeyType'=> "1"
+        );
+		
+		foreach ($parameter AS $key => $val) {
+            $def_url .= "$key=$val&";
+        }
+		
+		$pay_url = $this->config['baofoo_gateway']."?".$def_url;
+		
+		return $pay_url;
 	}
 	
 	function get_display_code(){
@@ -213,9 +271,90 @@ class baofoopay extends connector {
 		return $display;
 	}
 
-	function respond($payment = null, $orderread = array()) {
-		return false;
-	}
+	public function response($request) {
+		$return_res = array(
+            'info' => '',
+            'status' => false,
+        );
+		
+        /* 取返回参数 */
+        $MemberID=$request['MemberID'];//商户号
+		$TerminalID =$request['TerminalID'];//商户终端号
+		$TransID =$request['TransID'];//商户流水号
+		$Result=$request['Result'];//支付结果
+		$ResultDesc=$request['ResultDesc'];//支付结果描述
+		$FactMoney=$request['FactMoney'];//实际成功金额
+		$AdditionalInfo=$request['AdditionalInfo'];//订单附加消息
+		$SuccTime=$request['SuccTime'];//支付完成时间
+		$Md5Sign=$request['Md5Sign'];//md5签名
+		
+
+        /*获取支付信息*/
+    	
+		$_Md5Key= $this->config['baofoo_key'];
+		$payment_notice_sn = $AdditionalInfo;
+		$gopayOutOrderId =  $TransID;
+		
+		$MARK = "~|~";
+        /*比对连接加密字符串*/
+		$WaitSign=md5('MemberID='.$MemberID.$MARK.'TerminalID='.$TerminalID.$MARK.'TransID='.$TransID.$MARK.'Result='.$Result.$MARK.'ResultDesc='.$ResultDesc.$MARK.'FactMoney='.$FactMoney.$MARK.'AdditionalInfo='.$AdditionalInfo.$MARK.'SuccTime='.$SuccTime.$MARK.'Md5Sign='.$_Md5Key);
+
+        if ($Md5Sign != $WaitSign) {
+        	$linkURL = $_SERVER['HTTP_HOST'];
+			$this->callmessage("无效订单", $linkURL, $this->lng['gobackbotton']);
+        } else {
+			$time = time();
+	        $is_paid = $this->db->query("update ".db_prefix."order set ordertype=2, paytime=$time, paymoney='$FactMoney', paysn='$TransID' where oid = $payment_notice_sn");
+			if ($is_paid == 1){
+				$linkURL = $_SERVER['HTTP_HOST'];
+				$this->callmessage("支付成功", $linkURL, $this->lng['gobackbotton']); //支付成功
+			}else{
+				$linkURL = $_SERVER['HTTP_HOST'];
+				$this->callmessage("支付成功，充值失败", $linkURL, $this->lng['gobackbotton']);
+			}
+        }
+    }
+	
+	function notify($request) {
+		$return_res = array(
+            'info' => '',
+            'status' => false,
+        );
+		
+        /* 取返回参数 */
+        $MemberID=$request['MemberID'];//商户号
+		$TerminalID =$request['TerminalID'];//商户终端号
+		$TransID =$request['TransID'];//商户流水号
+		$Result=$request['Result'];//支付结果
+		$ResultDesc=$request['ResultDesc'];//支付结果描述
+		$FactMoney=$request['FactMoney'];//实际成功金额
+		$AdditionalInfo=$request['AdditionalInfo'];//订单附加消息
+		$SuccTime=$request['SuccTime'];//支付完成时间
+		$Md5Sign=$request['Md5Sign'];//md5签名
+		
+
+        /*获取支付信息*/
+    	
+		$_Md5Key= $this->config['baofoo_key'];
+		$payment_notice_sn = $AdditionalInfo;
+		$gopayOutOrderId =  $TransID;
+		
+		$MARK = "~|~";
+        /*比对连接加密字符串*/
+		$WaitSign=md5('MemberID='.$MemberID.$MARK.'TerminalID='.$TerminalID.$MARK.'TransID='.$TransID.$MARK.'Result='.$Result.$MARK.'ResultDesc='.$ResultDesc.$MARK.'FactMoney='.$FactMoney.$MARK.'AdditionalInfo='.$AdditionalInfo.$MARK.'SuccTime='.$SuccTime.$MARK.'Md5Sign='.$_Md5Key);
+
+        if ($Md5Sign != $WaitSign) {
+        	echo "Md5CheckFail";
+        } else {
+			$time = time();
+	        $is_paid = $this->db->query("update ".db_prefix."order set ordertype=2, paytime=$time, paymoney='$FactMoney', paysn='$TransID' where oid = $payment_notice_sn");
+			if ($is_paid == 1){
+				echo "ok";
+			}else{
+				echo "ok";
+			}
+        }
+    }
 
 }
 

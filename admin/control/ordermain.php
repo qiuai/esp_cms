@@ -150,7 +150,7 @@ class important extends connector {
 
 				$respondArray = array('code' => $plugcode, 'ordersn' => $read['ordersn'], 'oid' => $oid, 'codesn' => $codesn);
 				$return_url = $this->get_link('paybackurl', $respondArray, $this->sitelng, 0, 1);
-				$orderonline = $payobj->get_code($read, $paylist, $return_url, $return_url);
+				//$orderonline = $payobj->get_code($read, $paylist, $return_url, $return_url);
 			}
 			$productmoney = $read['productmoney'];
 			$dis = $read['discount'];

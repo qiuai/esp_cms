@@ -53,24 +53,24 @@ if (empty($archive) || empty($action)) {
 	if (method_exists($mainlist, 'in_index')) {
 		$mainlist->in_index();
 	} else {
-		exit('Access error!');
+		exit('Access error.');
 	}
 } else {
 	if (in_array($archive, array('article', 'forum', 'search', 'bbssearch', 'forummain', 'messmain', 'special', 'respond', 'public',
 		    'scriptout', 'enquiry', 'enquirymain', 'form', 'formmain', 'ordermain', 'membermain', 'member', 'forum', 'order', 'weixinmain', 'payment'))) {
 		$action = 'in_' . $action;
 		if (!file_exists(admin_ROOT . "interface/$archive.php")) {
-			exit('Access error!');
+			exit('Access error..');
 		}
 		include admin_ROOT . "interface/$archive.php";
 		$mainlist = new mainpage();
 		if (method_exists($mainlist, $action)) {
 			$mainlist->$action();
 		} else {
-			exit('Access error!');
+			exit('Access error...');
 		}
 	} else {
-		exit('Access error!');
+		exit('Access error....');
 	}
 }
 function indexget($k, $var = 'R', $htmlcode = true, $rehtml = false) {

@@ -41,6 +41,8 @@ class mainpage extends connector {
 		$mobile = trim($this->fun->accept('mobile', 'P', true, true));
 		$mobile = $this->fun->substr($mobile, 15);
 		$sendtime = intval($this->fun->accept('sendtime', 'R'));
+		$username = $firstname.' '.$lastname;
+		$bankid = trim($this->fun->accept('Bankid', 'P', true, true));;
 		$content = trim($this->fun->accept('content', 'P', true, true));
 		$content = $this->fun->substr($content, 500);
 		$invpayee = trim($this->fun->accept('invpayee', 'P', true, true));
@@ -83,26 +85,23 @@ class mainpage extends connector {
 				
 				// 创建支付订单
 				$db_table = db_prefix . 'order_payreceipt';
-				$db_field = 'oid,opid,paysn,ordersn,orderamount,bankaccount,bankname,username,content,userid,paytime,addtime';
-				$db_values = "'$insert_id,$opid,$paysn,$ordersn',$orderamount,'','',$username,'',$userid,$paytime,$addtime";
+				$db_field = 'oid,opid,paysn,ordersn,orderamount,bankaccount,bankname,bankid,username,content,userid,paytime,addtime';
+				$db_values = "$insert_id,$opid,'$paysn','$ordersn',$orderamount,'','','$bankid','$username','',$userid,$paytime,$addtime";
 				$this->db->query('INSERT INTO ' . $db_table . ' (' . $db_field . ') VALUES (' . $db_values . ')');
-				$this->db->insert_id();
+				$insert_id = $this->db->insert_id();
 				
-				$rsOrder = array('ordersn' => $ordersn, 'orderamount' => $orderamount, 'oid' => $insert_id);
-				$paylist = $this->fun->formatarray($payread['pluglist']);
 				$plugcode = $payread['paycode'];
 				if (!empty($plugcode)) {
 					include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
 					$payobj = new $plugcode();
-					$codesn = $this->fun->eccode($plugcode . $ordersn . $insert_id, 'ENCODE', db_pscode, FALSE);
-					$respondArray = array('code' => $plugcode, 'ordersn' => $ordersn, 'oid' => $insert_id, 'codesn' => $codesn);
-					$return_url = $this->get_link('paybackurl', $respondArray, admin_LNG);
-					$orderonline = $payobj->get_code($rsOrder, $paylist, $return_url, $return_url);
+					$pay_url = $payobj->get_code($insert_id);
+					
+					header("Location:$pay_url");exit;
 				}
 			}
 		
 			$linkURL = $_SERVER['HTTP_REFERER'];
-			$this->callmessage("订单创建成功", $orderonline, $this->lng['gobackbotton']);
+			$this->callmessage("订单创建成功", $linkURL, $this->lng['gobackbotton']);
 		}else{
 			$linkURL = $_SERVER['HTTP_REFERER'];
 			$this->callmessage($this->lng['order_buy_err'], $linkURL, $this->lng['gobackbotton']);
@@ -138,4 +137,33 @@ class mainpage extends connector {
 		$this->pagetemplate->display($templatefilename, 'order_list', false, '', admin_LNG);
 	}
 	
+	public function in_response() {
+		//支付跳转返回页
+		$plugcode = addslashes(trim($_REQUEST['plugcode']));
+		$payment_info = $this->db->getRow("select * from ".db_prefix."order_pay where paycode = '".$plugcode."'");
+		if($payment_info && $plugcode){
+			include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
+			$payobj = new $plugcode();
+			adddeepslashes($_REQUEST);
+			$payobj->response($_REQUEST);
+		}else{
+			$linkURL = $_SERVER['HTTP_HOST'];
+			$this->callmessage("支付失败", $linkURL, $this->lng['gobackbotton']);
+		}
+	}
+	
+	public function in_notify(){
+		//支付跳转返回页
+		$plugcode = addslashes(trim($_REQUEST['plugcode']));
+		$payment_info = $this->db->getRow("select * from ".db_prefix."order_pay where paycode = '".$plugcode."'");
+		if($payment_info && $plugcode){
+			include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
+			$payobj = new $plugcode();
+			adddeepslashes($_REQUEST);
+			$payobj->response($_REQUEST);
+		}else{
+			$linkURL = $_SERVER['HTTP_HOST'];
+			$this->callmessage("支付失败", $linkURL, $this->lng['gobackbotton']);
+		}
+	}
 }
