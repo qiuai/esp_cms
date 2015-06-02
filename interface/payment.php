@@ -11,6 +11,7 @@ class mainpage extends connector {
 	function in_pay() {
 		parent::start_pagetemplate();
 		$linkURL = $_SERVER['HTTP_REFERER'];$lng = (admin_LNG == 'big5') ? $this->CON['is_lancode'] : admin_LNG;
+		
 		$cartid = $this->fun->eccode($this->fun->accept('ecisp_order_list', 'C'), 'DECODE', db_pscode);
 		$cartid = stripslashes(htmlspecialchars_decode($cartid));
 		$uncartid = !empty($cartid) ? unserialize($cartid) : 0;
@@ -76,22 +77,28 @@ class mainpage extends connector {
 		$insert_id = $this->db->insert_id();
 		if($insert_id){
 				
-			//if (!empty($opid)) { // 在线支付
-				$rsOrder = array('ordersn' => $ordersn, 'orderamount' => $orderamount, 'oid' => $insert_id);
+			if (!empty($opid)) { // 在线支付
+				$paysn = date('YmdHis') . rand(100, 9999);
+				$paytime = time();
+				
+				// 创建支付订单
+				$db_table = db_prefix . 'order_payreceipt';
+				$db_field = 'oid,opid,paysn,ordersn,orderamount,bankaccount,bankname,username,content,userid,paytime,addtime';
+				$db_values = "'$insert_id,$opid,$paysn,$ordersn',$orderamount,'','',$username,'',$userid,$paytime,$addtime";
+				$this->db->query('INSERT INTO ' . $db_table . ' (' . $db_field . ') VALUES (' . $db_values . ')');
+				$this->db->insert_id();
+				
 				$paylist = $this->fun->formatarray($payread['pluglist']);
 				$plugcode = $payread['paycode'];
 				if (!empty($plugcode)) {
 					include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
 					$payobj = new $plugcode();
-					$codesn = $this->fun->eccode($plugcode . $ordersn . $insert_id, 'ENCODE', db_pscode, FALSE);
-					$respondArray = array('code' => $plugcode, 'ordersn' => $ordersn, 'oid' => $insert_id, 'codesn' => $codesn);
-					$return_url = $this->get_link('paybackurl', $respondArray, admin_LNG);
-					$orderonline = $payobj->get_code($rsOrder, $paylist, $return_url, $return_url);
+					$orderonline = $payobj->get_code($insert_id, $return_url, $return_url);
 				}
-			//}
+			}
 		
 			$linkURL = $_SERVER['HTTP_REFERER'];
-			$this->callmessage("订单创建成功", $linkURL, $this->lng['gobackbotton']);
+			$this->callmessage("订单创建成功", $orderonline, $this->lng['gobackbotton']);
 		}else{
 			$linkURL = $_SERVER['HTTP_REFERER'];
 			$this->callmessage($this->lng['order_buy_err'], $linkURL, $this->lng['gobackbotton']);
@@ -119,12 +126,18 @@ class mainpage extends connector {
 			$payobj = new $plugcode();
 			$this->pagetemplate->assign('display_code', $payobj->get_display_code());
 		}
-				
+
 		$templatesDIR = $this->get_templatesdir('order');
 		$templatefilename = $lng . '/' . $templatesDIR . '/order_buy_center';
 		$this->pagetemplate->assign('out', 'buyedit');
 		unset($array, $this->mlink, $LANPACK, $this->lng);
 		$this->pagetemplate->display($templatefilename, 'order_list', false, '', admin_LNG);
+	}
+
+	function in_response(){
+	}
+
+	function in_notify(){
 	}
 	
 }
