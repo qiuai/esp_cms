@@ -41,6 +41,8 @@ class mainpage extends connector {
 		$mobile = trim($this->fun->accept('mobile', 'P', true, true));
 		$mobile = $this->fun->substr($mobile, 15);
 		$sendtime = intval($this->fun->accept('sendtime', 'R'));
+		$username = $firstname.' '.$lastname;
+		$bankid = trim($this->fun->accept('Bankid', 'P', true, true));;
 		$content = trim($this->fun->accept('content', 'P', true, true));
 		$content = $this->fun->substr($content, 500);
 		$invpayee = trim($this->fun->accept('invpayee', 'P', true, true));
@@ -83,22 +85,23 @@ class mainpage extends connector {
 				
 				// 创建支付订单
 				$db_table = db_prefix . 'order_payreceipt';
-				$db_field = 'oid,opid,paysn,ordersn,orderamount,bankaccount,bankname,username,content,userid,paytime,addtime';
-				$db_values = "'$insert_id,$opid,$paysn,$ordersn',$orderamount,'','',$username,'',$userid,$paytime,$addtime";
+				$db_field = 'oid,opid,paysn,ordersn,orderamount,bankaccount,bankname,bankid,username,content,userid,paytime,addtime';
+				$db_values = "$insert_id,$opid,'$paysn','$ordersn',$orderamount,'','','$bankid','$username','',$userid,$paytime,$addtime";
 				$this->db->query('INSERT INTO ' . $db_table . ' (' . $db_field . ') VALUES (' . $db_values . ')');
-				$this->db->insert_id();
+				$insert_id = $this->db->insert_id();
 				
-				$paylist = $this->fun->formatarray($payread['pluglist']);
 				$plugcode = $payread['paycode'];
 				if (!empty($plugcode)) {
 					include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
 					$payobj = new $plugcode();
-					$orderonline = $payobj->get_code($insert_id, $return_url, $return_url);
+					$pay_url = $payobj->get_code($insert_id);
+					
+					header("Location:$pay_url");exit;
 				}
 			}
 		
 			$linkURL = $_SERVER['HTTP_REFERER'];
-			$this->callmessage("订单创建成功", $orderonline, $this->lng['gobackbotton']);
+			$this->callmessage("订单创建成功", $linkURL, $this->lng['gobackbotton']);
 		}else{
 			$linkURL = $_SERVER['HTTP_REFERER'];
 			$this->callmessage($this->lng['order_buy_err'], $linkURL, $this->lng['gobackbotton']);
@@ -126,18 +129,85 @@ class mainpage extends connector {
 			$payobj = new $plugcode();
 			$this->pagetemplate->assign('display_code', $payobj->get_display_code());
 		}
-
+				
 		$templatesDIR = $this->get_templatesdir('order');
 		$templatefilename = $lng . '/' . $templatesDIR . '/order_buy_center';
 		$this->pagetemplate->assign('out', 'buyedit');
 		unset($array, $this->mlink, $LANPACK, $this->lng);
 		$this->pagetemplate->display($templatefilename, 'order_list', false, '', admin_LNG);
 	}
+	
+	public function in_response() {
+		//支付跳转返回页
+		$plugcode = addslashes(trim($_REQUEST['plugcode']));
+		$payment_info = $this->db->getRow("select * from ".db_prefix."order_pay where paycode = '".$plugcode."'");
+		if($payment_info && $plugcode){
+			include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
+			$payobj = new $plugcode();
+			adddeepslashes($_REQUEST);
+			$return = $payobj->response($_REQUEST);
+			$linkURL = $_SERVER['HTTP_HOST'];
+		}else{
+			$return['info'] = '支付失败';
+			$linkURL = $_SERVER['HTTP_HOST'];
+		}
 
-	function in_response(){
-	}
+		if($return['status']){
+			$this->in_charge($return['oid']);
+		}
 
-	function in_notify(){
+		$this->callmessage($return['info'], $linkURL, $this->lng['gobackbotton']);
 	}
 	
+	public function in_notify(){
+		//支付跳转返回页
+		$plugcode = addslashes(trim($_REQUEST['plugcode']));
+		$payment_info = $this->db->getRow("select * from ".db_prefix."order_pay where paycode = '".$plugcode."'");
+		if($payment_info && $plugcode){
+			include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
+			$payobj = new $plugcode();
+			adddeepslashes($_REQUEST);
+			$return = $payobj->response($_REQUEST);
+		}else{
+			$return['info'] = 'failed';
+			$return['status'] = false;
+		}
+
+		if($return['status']){
+			$this->in_charge($return['oid']);
+		}
+
+		echo $return['info'];
+	}
+
+	private function in_charge($oid){
+		//给用户充值
+		//充值接口 MODULE=CustomerDeposits&COMMAND=add&method=depositTerminal&customerId=12&amount=300&transactionID=abcdTest123&paymentMethod=cashU
+		// URL ：  api-spotplatform.sky9fx.com/Api
+		// 用户 sky9fx_api
+		// 密码  G3UNeg9yFWtf
+
+		$order = $this->db->getRow("select * from ".db_prefix."order where oid=".$oid);
+
+		$apiData = array( 
+			'api_username'	=> 'sky9fx_api',
+			'api_password'	=> 'G3UNeg9yFWtf',
+			'MODULE'		=> 'add', 
+			'COMMAND'		=> 'view', 
+			'customerId'	=> $order['user_id'],
+			'amount'		=> intval($order['paymoney']) / intval($order['discount']),
+			'transactionID'	=> $order['ordersn'],
+			'paymentMethod'	=> 'cashU'
+		); 
+		$URL = 'api-spotplatform.sky9fx.com/Api';  
+		$ch = curl_init($URL); 
+		curl_setopt($ch, CURLOPT_POST, true); 
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($apiData)); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+		$result = curl_exec($ch); // run the whole process  
+		curl_close($ch); 
+
+		// 更新订单信息
+
+		return $result; 
+	}
 }
