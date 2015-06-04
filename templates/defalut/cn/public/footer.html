@@ -4,17 +4,22 @@
    		<div class="footer_left clear">
         
         {%get name=typelist%}
-			{%forlist from=$array key=i max=3%}
+<?php $j=0;?>
+			{%forlist from=$array key=i%}
+			{%if $array[i].isaccessory == 1 && $j < 3 %}
 			<dl>
-				<dt class="icon_0{%$i+1%}">{%$array[i].typename%}</dt>
+				<dt class="icon_0{%$j+1%}">{%$array[i].typename%}</dt>
 				{%if count( $array[i].childArray ) > 0 %}
 				{%forlist from=$array[i].childArray key=ii%}
 				<dd><a href="{%$array[i].childArray[ii].link%}" title="{%$array[i].childArray[ii].typename%}">{%$array[i].childArray[ii].typename%}</a></dd>
 				{%/forlist%}
 				{%/if%}
+<?php $j++;?>
 			</dl>
+			{%/if%}
 			{%/forlist%}
 		{%/get%}
+
         
         </div>
         <div class="footer_right"><img src="{%$rootpath%}images/tel.jpg" width="216" height="102"></div>
