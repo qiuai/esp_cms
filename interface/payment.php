@@ -94,14 +94,16 @@ class mainpage extends connector {
 				if (!empty($plugcode)) {
 					include_once admin_ROOT . 'public/plug/payment/' . $plugcode . '.php';
 					$payobj = new $plugcode();
-					$pay_url = $payobj->get_code($insert_id);
-					
-					header("Location:$pay_url");exit;
+					$this->pagetemplate->assign('display_code', $payobj->get_code($insert_id));
 				}
+						
+				$templatesDIR = $this->get_templatesdir('order');
+				$templatefilename = $lng . '/' . $templatesDIR . '/order_pay_center';
+				$this->pagetemplate->display($templatefilename, 'order_list', false, '', admin_LNG);
 			}
 		
-			$linkURL = $_SERVER['HTTP_REFERER'];
-			$this->callmessage("订单创建成功", $linkURL, $this->lng['gobackbotton']);
+//			$linkURL = $_SERVER['HTTP_REFERER'];
+//			$this->callmessage("订单创建成功", $linkURL, $this->lng['gobackbotton']);
 		}else{
 			$linkURL = $_SERVER['HTTP_REFERER'];
 			$this->callmessage($this->lng['order_buy_err'], $linkURL, $this->lng['gobackbotton']);
@@ -182,31 +184,38 @@ class mainpage extends connector {
 
 	private function in_charge($oid){
 		//给用户充值
-		//充值接口 MODULE=CustomerDeposits&COMMAND=add&method=depositTerminal&customerId=12&amount=300&transactionID=abcdTest123&paymentMethod=cashU
-		// URL ：  api-spotplatform.sky9fx.com/Api
-		// 用户 sky9fx_api
-		// 密码  G3UNeg9yFWtf
 
 		$order = $this->db->getRow("select * from ".db_prefix."order where oid=".$oid);
 
 		$apiData = array( 
 			'api_username'	=> 'sky9fx_api',
-			'api_password'	=> 'G3UNeg9yFWtf',
-			'MODULE'		=> 'add', 
-			'COMMAND'		=> 'view', 
-			'customerId'	=> $order['user_id'],
-			'amount'		=> intval($order['paymoney']) / intval($order['discount']),
+			'api_password'	=> '5575670fa3984',
+			'MODULE'		=> 'CustomerDeposits', 
+			'COMMAND'		=> 'add', 
+			'method'		=> 'depositTerminal', 
+			'customerId'	=> $order['userid'],
+			'amount'		=> round(floatval($order['productmoney']) / floatval($order['discount']),2),
 			'transactionID'	=> $order['ordersn'],
 			'paymentMethod'	=> 'cashU'
 		); 
-		$URL = 'api-spotplatform.sky9fx.com/Api';  
+		$URL = 'http://api-spotplatform.sky9fx.com/Api';
 		$ch = curl_init($URL); 
 		curl_setopt($ch, CURLOPT_POST, true); 
-		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($apiData)); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($apiData));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
 		$result = curl_exec($ch); // run the whole process  
 		curl_close($ch); 
 
+        $xml=simplexml_load_string($result,'SimpleXMLElement', LIBXML_NOCDATA);
+        if(is_object($xml)){
+            $xml=get_object_vars($xml);
+        }
+
 		// 更新订单信息
+        if($xml['connection_status'] == 'successful' && $xml['operation_status'] == 'successful'){ // 成功
+            $sql = 'update '.db_prefix.'order set shippingmoney = "'.$apiData['amount'].'",shippingtime="'.time().'" where oid = '.$oid;
+            $this->db->query($sql);
+        }
 
 		return $result; 
 	}

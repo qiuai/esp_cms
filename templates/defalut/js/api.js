@@ -39,27 +39,33 @@ var Api = {
 		Api.getCountries();
 		
 		$('#loginBtn').click(function () {   
-               
-        $('#lgbtn').hide();
-        $('#lgloding').show();
-        
-        SO.model.Customer.login({
-               email : $("#email").val(),
-               password : $("#password").val(),
-               onSuccess : function (data) {                         
-                       location.reload();                            
-               },
-               onError : function (data) {
-                       alert(SiteSettings.terms.apiLoginOnError);
-               },
-               onFail : function (err) {
-                       alert(SiteSettings.terms.apiLoginOnFail + err);
-               }
-        });
-        
-        return false; 
-        
-});
+				   
+			$('#lgbtn').hide();
+			$('#lgloding').show();
+			
+			SO.model.Customer.login({
+				   email : $("#email").val(),
+				   password : $("#password").val(),
+				   onSuccess : function (data) {                         
+						   //location.reload();   
+                           if(lng == 'en'){
+                               location.href=rootdir+lng+'/index.php?ac=member&at=myAccount';
+                           }else{
+                               location.href=rootdir+'index.php?ac=member&at=myAccount';
+                           }
+				   },
+				   onError : function (data) {
+						   alert(SiteSettings.terms.apiLoginOnError);
+				   },
+				   onFail : function (err) {
+						   alert(SiteSettings.terms.apiLoginOnFail + err);
+				   }
+			});
+			
+			return false; 
+			
+		});
+
 		/*
 		$('#loginBtn').click(function () {   
 			var email = $("#email").val();
@@ -155,7 +161,7 @@ var Api = {
 	buildPersonalHeader : function () {
 		var logedin = $('#loggedInBox');
 
-		console.log(SO.model.Customer.currentCustomer.FirstName)
+//		console.log(SO.model.Customer.currentCustomer.FirstName)
 		$('#cBlack').text('欢迎您: ' + SO.model.Customer.currentCustomer.FirstName + ' ' + SO.model.Customer.currentCustomer.LastName)
         /*
 		$('#userLoginForm').remove();

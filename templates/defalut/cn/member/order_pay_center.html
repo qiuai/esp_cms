@@ -1,0 +1,23 @@
+
+{%link file="cn/public/header.html"%}
+
+<!-- 面包屑 -->
+<div class="crumbs">
+	<div class="warp"><a href="{%$rootdir%}">首页</a>
+	&gt; <a href="{%$rootdir%}index.php?ac=payment&amp;at=order">充值中心</a>
+	</div>
+</div>
+<!-- 面包屑End -->
+<!-- 内容区域 -->
+<div class="warp clear">
+	{%$display_code%}
+</div>
+<!-- 内容区域End -->
+
+<script>
+	window.setTimeout(function(){ 
+		$('#myform').submit();
+	},5000); 
+</script>
+
+{%link file="cn/public/footer.html"%}

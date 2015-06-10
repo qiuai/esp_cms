@@ -213,4 +213,11 @@ finance.net:9090/lfc/website/cn/iframe/day_plan_home.jsp?parentpath=http%3A%2F%2
 </div>
 <!-- 合作机构End -->
 
+<script>
+    $("#so_container .applyApprove").live("click",function(){
+        $('#so_container .popupOpenAccount').attr('href',rootdir+'index.php?ac=member&at=reg');
+        $('#so_container .loginPopupForgotPassword').attr('href',rootdir+'index.php?ac=member&at=lostpasswd');
+    });
+</script>
+
 {%link file="cn/public/foot.html"%}

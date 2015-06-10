@@ -16,6 +16,8 @@
 <script src="http://spotplatform.sky9fx.com/SpotOptionPlugin.js"></script>
 <script language="javascript" src="{%$rootpath%}js/api.js"></script>
 <script>
+    var rootdir = '{%$rootdir%}';
+    var lng = '{%admin_LNG%}';
 	$(function(){
 		$('#bankPut').click(function(){
 			window.location.href="{%$rootdir%}index.php?ac=payment&at=order";

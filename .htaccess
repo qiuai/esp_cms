@@ -1,0 +1,3 @@
+RewriteEngine on 
+RewriteCond %{HTTP_HOST} ^sky9fx.com [NC] 
+RewriteRule ^(.*)$ http://www.sky9fx.com/$1 [L,R=301]

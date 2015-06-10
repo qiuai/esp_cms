@@ -211,9 +211,9 @@ class baofoopay extends connector {
 		
 		$payment_notice = $this->db->getRow("select * from ".db_prefix."order where oid=".$payment_info['oid']);
 		
-		$_TransID = $payment_notice['order_sn'];
+		$_TransID = $payment_notice['ordersn'];
 		$_OrderMoney = round($payment_notice['productmoney'],2);
-		$_Username = $payment_notice['username'];
+		$_Username = $payment_notice['consignee'];
 		
 		$_Merchant_url =  admin_rootDIR.'baofoo_response.php';
         $_Return_url = admin_rootDIR.'baofoo_notify.php';
@@ -254,13 +254,14 @@ class baofoopay extends connector {
 			'KeyType'=> "1"
         );
 		
-		foreach ($parameter AS $key => $val) {
-            $def_url .= "$key=$val&";
+		$def_url = '<form id="myform" style="text-align:center;" action="'.$this->config['baofoo_gateway'].'" target="_blank" style="margin:0px;padding:0px" method="POST" >';
+
+        foreach ($parameter AS $key => $val) {
+            $def_url .= "<input type='hidden' name='$key' value='$val' />";
         }
-		
-		$pay_url = $this->config['baofoo_gateway']."?".$def_url;
-		
-		return $pay_url;
+        $def_url .= "<input type='submit' class='paybutton' value='前往".$this->payment_lang['baofoo_gateway_'.intval($_PayID)]."' />";
+        $def_url .= "</form>";
+        return $def_url;
 	}
 	
 	function get_display_code(){
